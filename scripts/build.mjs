@@ -1,0 +1,11 @@
+import { mkdir, readFile, writeFile, rm, cp } from 'node:fs/promises';
+await rm('dist',{recursive:true,force:true});
+await mkdir('dist/server',{recursive:true});
+await mkdir('dist/.openai',{recursive:true});
+await cp('public','dist/client',{recursive:true});
+await cp('worker/index.js','dist/server/index.js');
+const pages={'/':await readFile('public/index.html','utf8'),'/collection/':await readFile('public/collection/index.html','utf8')};
+await writeFile('dist/server/pages.js',`export const pages=${JSON.stringify(pages)};\n`);
+await cp('.openai/hosting.json','dist/.openai/hosting.json');
+await cp('drizzle','dist/.openai/drizzle',{recursive:true});
+console.log('Built site pages, static assets, newsletter endpoint, and schema migrations.');
