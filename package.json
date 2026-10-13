@@ -1,1 +1,15 @@
-{"name":"gummy-glow","private":true,"type":"module","scripts":{"build":"node scripts/build.mjs","db:generate":"drizzle-kit generate"},"devDependencies":{"drizzle-kit":"0.31.4","drizzle-orm":"0.44.5"}}
+{
+  "name": "gummy-glow",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "db:generate": "drizzle-kit generate",
+    "test": "node scripts/check-scenes.mjs && node scripts/check-factory-tour.mjs && node scripts/check-tour-runtime.mjs && node scripts/check-subscribe.mjs"
+  },
+  "devDependencies": {
+    "drizzle-kit": "0.31.4",
+    "drizzle-orm": "0.44.5",
+    "linkedom": "0.18.12"
+  }
+}

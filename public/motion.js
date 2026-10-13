@@ -11,7 +11,7 @@
   try { entrySeen = sessionStorage.getItem('gummy-entry-seen') === 'yes'; } catch {}
   const loader = $('#loader');
   const available = !!window.gsap && !!window.ScrollTrigger;
-  const controls = [$('.skip-link'), $('.site-header'), $('main'), $('footer')];
+  const controls = [$('.skip-link'), $('.site-header'), $('.elevator-panel'), $('main'), $('footer')];
   const setInert = (value) => controls.forEach(el => el.inert = value);
   const setMotionPreference = () => document.body.classList.toggle('reduced-motion', reduced);
   const splitStory = () => {
@@ -45,7 +45,7 @@
     const { descent, lift, release, exit } = GummyScene.timing;
     gsap.set('.hero-pack', { y: geometry.pickupY, autoAlpha: 0 });
     gsap.set('.pop-candy', { y: 0, rotation: 0, scale: .7, autoAlpha: 1 });
-    heroPhase = 'running';
+    heroPhase = 'running'; window.gummyPouchReady = false;
     heroTimeline = gsap.timeline({ onComplete: () => { heroPhase = 'complete'; } });
     heroTimeline
       // At descent end the actual image's top is exactly the hero's top (y=0).
@@ -58,7 +58,8 @@
       .addLabel('pop', descent + lift - .6)
       // Keep its center pinned; tilt only once the claw releases.
       .to('.claw', { y: geometry.offscreenY, duration: exit, ease: 'power2.in' }, `centered+=${release}`)
-      .to('.hero-pack', { rotation: 12, duration: .7, ease: 'power2.out' }, `centered+=${release + .2}`);
+      .to('.hero-pack', { rotation: 12, duration: .7, ease: 'power2.out' }, `centered+=${release + .2}`)
+      .call(() => { window.gummyPouchReady = true; window.dispatchEvent(new Event('gummy:pouch-ready')); }, [], descent + lift + release + .9);
     $$('.pop-candy').forEach((el, i) => {
       const liftHeight = height * (.42 + ((i * 17) % 40) / 100);
       const rise = .65 + (i % 4) * .08;
@@ -103,7 +104,7 @@
     const reveal = gsap.timeline({ scrollTrigger: {
       trigger: '.blueprint-pin', start: 'top top',
       end: () => '+=' + Math.max(1100, innerHeight * 1.7),
-      pin: true, scrub: .65, invalidateOnRefresh: true
+      pin: true, scrub: .65, invalidateOnRefresh: true, refreshPriority: 9
     } });
     reveal.fromTo('.blueprint-section .facts', { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .35 }, 0)
       .fromTo('.blueprint-art', { '--reveal': '-6%' }, { '--reveal': '106%', duration: 2.7, ease: 'none' }, .25)
@@ -133,7 +134,7 @@
     entryTimeline?.kill();
     loader.hidden = true;
     document.body.classList.remove('loading');
-    setInert(false);
+    setInert(false); window.gummyEntryComplete = true; window.dispatchEvent(new Event('gummy:entry'));
     if (loader.contains(document.activeElement)) $('.wordmark').focus({ preventScroll: true });
     if (available) { ScrollTrigger.refresh(); if (animateHero && !reduced && scrollY < 200) playHero(); else gsap.set('.claw-stage', { autoAlpha: 0 }); }
   }
@@ -180,6 +181,7 @@
         ScrollTrigger.refresh();
     }, 180);
   });
+  window.addEventListener('gummy:floor-reception', () => { if (entryComplete && heroPhase === 'idle' && !reduced) playHero(); });
   $('.wordmark').addEventListener('click', () => {
     if (entryComplete && heroPhase === 'idle' && !reduced) playHero();
   });
