@@ -32,7 +32,7 @@ export default {
    }
   }
   if(request.method!=='GET' && request.method!=='HEAD')return new Response('Method not allowed',{status:405});
-  const path=url.pathname === '/collection' ? '/collection/' : url.pathname;
+  const path=url.pathname==='/'?'/':url.pathname.replace(/\/?$/,'/');
   if(pages[path])return new Response(request.method==='HEAD'?null:pages[path],{headers:{'Content-Type':'text/html; charset=utf-8'}});
   if(env.ASSETS)return env.ASSETS.fetch(request);
   return new Response('Not found',{status:404});

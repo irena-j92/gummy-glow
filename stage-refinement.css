@@ -1,0 +1,43 @@
+/* Measured header staging, polished photo edges, and circular-only glow. */
+.machine-hero{padding:0 0 36px;background:#080f82 url('/assets/header-background.webp') center top/cover no-repeat}
+.machine-screen{width:min(1180px,84vw);margin:0 auto;aspect-ratio:1374/1145;background:none}
+.hero-machine-frame{height:auto}
+.machine-window{left:13.85%;top:16.95%;width:72.45%;height:71.9%;border-radius:3.5%}
+.machine-layout .site-header{top:26px;left:50%;right:auto;translate:-50% 0;width:min(1120px,calc(84vw - 32px));z-index:40}
+.machine-window .hero-pattern{inset:0;opacity:.5}
+.machine-window .hero-pattern img{position:absolute;left:50%;top:50%;width:180%;height:190%;max-width:none;object-fit:cover;transform:translate(-50%,-50%);filter:brightness(0) invert(1)}
+.machine-window .hero-heading{top:50%;z-index:1}
+.machine-window .hero-heading h1{font-size:16cqw;letter-spacing:-.035em;opacity:0;visibility:hidden;width:100%;will-change:transform,opacity}
+.machine-window .pop-candy{top:0;bottom:auto;translate:none;transform:none;opacity:0;visibility:hidden}
+.machine-stages{position:relative;display:block;width:min(760px,80vw);max-width:none;aspect-ratio:2172/323;margin:12px auto 0;padding:0;overflow:hidden;border-radius:20px;container-type:inline-size}
+.floor-bank-image{position:absolute;top:-60.991%;left:0;width:100%;height:224.149%;max-width:none;object-fit:fill;pointer-events:none}
+.machine-stages .stage-button{position:absolute;top:31.1%;width:8%;height:60%;min-width:44px;min-height:44px;aspect-ratio:auto;transform:translate(-50%,-50%);border:0;border-radius:50%;background:none;box-shadow:none;filter:none;color:#fc8cf6}
+.machine-stages .stage-button:nth-of-type(1){left:9.991%}.machine-stages .stage-button:nth-of-type(2){left:26.519%}.machine-stages .stage-button:nth-of-type(3){left:42.587%}.machine-stages .stage-button:nth-of-type(4){left:58.034%}.machine-stages .stage-button:nth-of-type(5){left:73.688%}.machine-stages .stage-button:nth-of-type(6){left:90.285%}
+.machine-stages .stage-button:after{inset:auto;left:50%;top:50%;translate:-50% -50%;width:5.9cqw;height:4.65cqw;border-radius:50%;background:radial-gradient(ellipse,#fc8cf655,#fc8cf61a 70%);box-shadow:inset 0 0 9px #fc8cf6;mix-blend-mode:screen;opacity:0;transition:opacity .25s;pointer-events:none}
+.machine-stages .stage-button[aria-current]{filter:none;border:0;box-shadow:none;text-shadow:none}
+.machine-stages .stage-button[aria-current]:after{opacity:1}
+.machine-stages .stage-button:hover:after{opacity:.55}.machine-stages .stage-button[aria-current]:hover:after{opacity:1}
+.description-floor .story-copy{width:70%;max-width:1100px;font-size:clamp(21px,min(3.1vw,5svh),55px);line-height:1.3}
+/* A native sticky chamber holds the completed model for ~1.4 extra viewports. */
+.lab-chamber{padding:0;background:linear-gradient(#fff1fb,#fc8cf6)}
+.creation-intro{padding:90px 7% 55px;max-width:1200px;margin:auto;text-align:center;color:#080f82}
+.creation-intro .eyebrow{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;margin-bottom:22px}
+.creation-intro h2{font:400 clamp(45px,6.5vw,94px)/1.05 Anton,Impact,sans-serif;letter-spacing:-.025em}
+.creation-intro p{max-width:680px;margin:28px auto 0;font-size:clamp(17px,1.5vw,23px);line-height:1.65}
+.creation-stage{display:grid;place-items:center;padding:24px 0 55px}
+.creation-stage .chamber-shell{width:min(1000px,calc(100% - 64px),calc((100svh - 64px)*1.4));aspect-ratio:1484/1060}
+.lab-chamber.creation-lock{height:420svh}
+.creation-lock .creation-stage{position:sticky;top:0;height:100svh;padding:24px 0}
+body[data-active-floor="03"] .elevator-panel,body[data-active-floor="04"] .elevator-panel,body[data-active-floor="05"] .elevator-panel{visibility:visible}
+body.less-motion .lab-chamber{height:auto!important}body.less-motion .creation-stage{position:relative!important;height:auto!important}
+@media(max-width:760px){
+ .machine-hero{padding-top:0}.machine-screen{width:96vw}
+ .machine-layout .site-header{top:20px;width:calc(96vw - 24px);left:50%;right:auto}
+ .machine-stages{width:88vw;margin-top:8px;border-radius:10px}
+ .description-floor .story-copy{width:76%;font-size:clamp(20px,4.7vw,30px)}
+ .creation-intro{padding:65px 9% 35px}.creation-intro h2{font-size:clamp(40px,9.3vw,65px)}
+ .creation-stage .chamber-shell{width:calc(100% - 24px)}
+}
+@media(prefers-reduced-motion:reduce){.lab-chamber.creation-lock{height:auto}.creation-lock .creation-stage{position:relative;height:auto}.machine-window .hero-heading h1{opacity:1;visibility:visible;will-change:auto}}
+.hero-machine-frame{clip-path:inset(1.7% 1.6% 2.4% 1.6% round 1.5%)}
+.machine-stages .stage-button>span{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden;border:0;background:none}

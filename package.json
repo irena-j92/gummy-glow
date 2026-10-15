@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "db:generate": "drizzle-kit generate",
-    "test": "node scripts/check-scenes.mjs && node scripts/check-factory-tour.mjs && node scripts/check-tour-runtime.mjs && node scripts/check-subscribe.mjs"
+    "test": "node scripts/check-compact-tour.mjs && node scripts/check-tour-runtime.mjs && node scripts/check-pipe-model.mjs && node scripts/check-description.mjs && node scripts/check-section-motion.mjs && node scripts/check-review-lens.mjs && node scripts/check-classics.mjs && node scripts/check-community.mjs && node scripts/check-packing.mjs && node scripts/check-shop.mjs && node scripts/check-subscribe.mjs"
   },
   "devDependencies": {
     "drizzle-kit": "0.31.4",

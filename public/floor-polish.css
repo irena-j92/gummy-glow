@@ -1,0 +1,111 @@
+.bag-dialog{position:fixed;inset:0 0 0 auto;height:100dvh;max-height:none;width:min(520px,100%);max-width:none;margin:0;border:0;padding:28px 26px;background:#fff;color:var(--ink);overflow-y:auto}.bag-dialog::backdrop{background:#080f8259}.bag-top{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #ddd;padding-bottom:22px}.bag-top h2{font-size:33px;line-height:1.1}.bag-top button{font-size:30px;min-width:44px;min-height:44px}.bag-line{display:grid;grid-template-columns:80px 1fr;gap:18px;padding:24px 0;border-bottom:1px solid #ddd}.bag-image{height:120px;background:var(--product-color);border-radius:10px;display:flex;align-items:center;justify-content:center}.bag-image img{width:85%;height:90%;object-fit:contain}.bag-line h3{font:600 17px/1.25 Outfit,Arial,sans-serif}.bag-line p{font-size:12px;line-height:1.4;color:#786e8d;margin-top:5px}.bag-line-controls{display:flex;align-items:center;gap:10px;margin-top:16px}.bag-line-controls button{border:1px solid #ddd;border-radius:4px;min-width:34px;min-height:34px;font-size:19px}.bag-line-controls .bag-remove{border:0;text-decoration:underline;margin-left:auto;font-size:12px}.bag-empty{text-align:center;padding:70px 10px;line-height:1.5;font-size:17px}.bag-empty a{display:block;text-decoration:underline;margin-top:20px}.bag-summary{padding-top:26px}#bag-total{font-size:17px;font-weight:600}#bag-storage-status{font-size:12px;line-height:1.5;margin-top:9px}.preview-note{font-size:12px;line-height:1.5;color:#786e8d;margin:16px 0}.bag-summary button{width:100%;background:var(--ink);color:white;padding:15px;min-height:48px;border-radius:99px;font-weight:600}.noscript-note{padding:20px;text-align:center;font-size:14px;background:var(--lavender)}
+/* Supplied vector navigation; live links sit over its outlined artwork. */
+.machine-layout .site-header{position:fixed;top:20px;width:min(1180px,84vw);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-12px);transition:opacity .25s,transform .35s,visibility .25s}
+.machine-layout.nav-visible .site-header{opacity:1;visibility:visible;pointer-events:auto;transform:none}
+.machine-nav{position:relative;display:block;padding:0;min-height:0;aspect-ratio:1392/70;background:none;box-shadow:none;border-radius:999px;gap:0}
+.nav-art{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.machine-nav>a,.machine-nav>button{position:absolute;top:50%;translate:0 -50%;height:100%;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:0;color:transparent;border:0;background:none;border-radius:24px;padding:0}
+.machine-nav .nav-about{left:2.4%;width:6.1%}.machine-nav .nav-shop{left:9.6%;width:5.2%}.machine-nav .nav-blog{left:15.7%;width:5.1%}
+.machine-nav .wordmark{left:45%;width:13%;font-size:0;letter-spacing:0}
+.machine-nav .nav-search{left:82.7%;width:8.7%}.machine-nav .nav-profile{left:92.5%;width:3.2%;min-width:44px}.machine-nav .bag-open{left:96%;width:3.2%;min-width:44px}
+.machine-nav>a:hover,.machine-nav>button:hover{background:#080f820a}.machine-nav>a:focus-visible,.machine-nav>button:focus-visible{outline:3px solid #080f82;outline-offset:3px}
+.machine-nav svg,.machine-nav .nav-search>span{display:none}.machine-nav .nav-bag-count{position:absolute;top:0;right:-1px;min-width:16px;height:16px;padding:0 3px;border-radius:50%;background:#080f82;color:#fff;font-size:10px;line-height:16px}
+.machine-nav .nav-bag-count:empty,.machine-nav .nav-bag-count[data-empty]{display:none}
+#glow-dialog{position:fixed;inset:0;margin:auto;padding:30px;width:min(420px,calc(100% - 32px));border:2px solid #080f82;border-radius:22px;background:#fff1fb;color:#080f82}
+#glow-dialog::backdrop{background:#080f8259}.glow-top{display:flex;align-items:center;justify-content:space-between;gap:16px}.glow-top h2{font-size:38px}.glow-top button{font-size:30px;min-height:44px;min-width:44px}#glow-dialog p{margin:24px 0;line-height:1.5}#glow-dialog #motion-toggle{border:1px solid #080f82;min-height:44px;font-size:14px}
+/* The floor dock uses the same photographic circular buttons as reception. */
+.machine-layout .elevator-panel{left:auto;right:24px;bottom:14px;width:min(480px,calc(100vw - 32px));display:block;padding:0;background:none;border:0;border-radius:0;box-shadow:none;opacity:0;visibility:hidden!important;pointer-events:none;transition:opacity .25s}
+.machine-layout.nav-visible .elevator-panel{opacity:1;visibility:visible!important;pointer-events:auto}
+.machine-layout .elevator-display{position:absolute;width:1px;height:1px;min-height:0;padding:0;overflow:hidden;clip-path:inset(50%)}
+.machine-layout .elevator-panel #next-floor{display:none}
+.machine-layout .elevator-panel .floor-buttons{position:relative;display:block;width:100%;margin:0;aspect-ratio:2172/323;overflow:hidden;border-radius:12px;container-type:inline-size}
+.machine-layout .floor-buttons a{position:absolute;top:31.1%;width:8%;height:60%;min-width:44px;min-height:44px;translate:-50% -50%;border:0;border-radius:50%;background:none;color:transparent}
+.floor-buttons a:nth-of-type(1){left:9.991%}.floor-buttons a:nth-of-type(2){left:26.519%}.floor-buttons a:nth-of-type(3){left:42.587%}.floor-buttons a:nth-of-type(4){left:58.034%}.floor-buttons a:nth-of-type(5){left:73.688%}.floor-buttons a:nth-of-type(6){left:90.285%}
+.floor-buttons a>span{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+.floor-buttons a:after{content:'';position:absolute;left:50%;top:50%;translate:-50% -50%;width:5.9cqw;height:4.65cqw;border-radius:50%;background:radial-gradient(ellipse,#fc8cf655,#fc8cf61a 70%);box-shadow:inset 0 0 9px #fc8cf6;mix-blend-mode:screen;opacity:0;transition:opacity .25s;pointer-events:none}
+.floor-buttons a[aria-current]:after{opacity:1}.floor-buttons a:hover:after{opacity:.55}.floor-buttons a[aria-current]:hover:after{opacity:1}.floor-buttons a:focus-visible{outline:2px solid white;outline-offset:0}
+/* Overlap the exiting viewport with the chamber instead of scrolling past a blank one. */
+.description-floor.description-motion{margin-bottom:-100svh;background:transparent;z-index:2;pointer-events:none}
+.description-motion .story-stage{background:radial-gradient(ellipse at 50% 78%,#252890,#080f65 90%)}
+.delicious-word{position:relative;display:inline-block}
+.description-floor .story-copy .story-star-delicious{left:50%;right:auto;top:auto;bottom:calc(100% + 12px);width:clamp(52px,9vw,135px);height:auto;translate:-50% 0;--softness:1px;z-index:3}
+/* Pin the chamber itself. Its spacer ends directly before the table. */
+.lab-chamber,.lab-chamber.creation-lock{height:auto;overflow:visible;isolation:auto;z-index:1}
+.creation-stage,.creation-lock .creation-stage{position:relative;top:auto;height:auto;padding:24px 0 28px;width:100%}
+.creation-stage .chamber-shell{width:min(1180px,84vw);aspect-ratio:1484/1060}
+.creation-intro{padding-bottom:28px}
+/* Separate hover rotation from GSAP's scroll transforms. */
+.comparison-board{margin-top:-40px;transform:none}
+.comparison-tilt{position:absolute;inset:0;transform:rotate(6deg);transform-origin:50% 50%;transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.comparison-board:hover .comparison-tilt,.comparison-board:focus-visible .comparison-tilt{transform:rotate(-6deg)}
+/* Cut paper, navy tape, alternating inclines: match the supplied review frames. */
+.review-track{align-items:flex-start;padding-top:80px;padding-bottom:95px}
+.review-note{align-self:flex-start;transform:rotate(6deg);container-type:inline-size}
+.review-note:nth-child(2),.review-note:nth-child(4){transform:rotate(-6deg);margin-top:55px}
+.review-paper{height:auto;min-height:78cqw;padding:15cqw 12cqw 10cqw;border-radius:0;background:#fff;mask:url('/assets/review-paper.svg') 0 0/100% 100% no-repeat;-webkit-mask:url('/assets/review-paper.svg') 0 0/100% 100% no-repeat}
+.review-paper:before,.review-paper:after{display:none}
+.review-paper blockquote{font-size:clamp(17px,1.5vw,23px);line-height:1.34;letter-spacing:-.02em}
+.review-author{padding-top:6cqw;gap:3cqw}.review-avatar{width:13cqw;height:13cqw;max-width:70px;max-height:70px;font-size:30px;border-width:2px}.review-author h3{font-size:clamp(20px,2.2vw,32px)}.review-author p{font-size:clamp(14px,1.5vw,21px)}
+.review-tape{left:10%;top:-5cqw;width:6cqw;height:14cqw;min-height:0;max-height:none}
+@media(max-width:1000px){
+ .machine-layout .site-header{width:calc(100% - 32px);top:16px}
+ .machine-nav{display:flex;align-items:center;gap:4px;min-height:62px;aspect-ratio:auto;padding:0 15px;border:2px solid #080f82;background:white}
+ .nav-art{display:none}.machine-nav>a,.machine-nav>button{position:static;translate:none;width:auto;min-width:44px;min-height:44px;height:auto;color:#080f82;font-size:12px;padding:0 6px}
+ .machine-nav .wordmark{margin:0 auto;font-size:27px;min-width:0;width:auto;white-space:nowrap;letter-spacing:-.035em}
+ .machine-nav .nav-search>span{display:none}.machine-nav .nav-profile,.machine-nav .bag-open{min-width:44px;width:44px;position:relative;left:auto}.machine-nav .nav-search{min-width:44px;width:44px}.machine-nav svg{display:block;width:25px;height:25px;fill:none;stroke:currentColor;stroke-width:1.8}.machine-nav .nav-bag-count{right:0;top:0}
+}
+@media(max-width:760px){
+ .machine-layout .site-header{top:12px;width:calc(100% - 24px)}.machine-nav{padding:0 8px;min-height:56px;gap:0}.machine-nav .wordmark{font-size:23px}.machine-nav .nav-about,.machine-nav .nav-blog,.machine-nav .nav-profile{display:none}.machine-nav .nav-shop{font-size:11px;padding:0 5px}
+ .machine-layout .elevator-panel{right:16px;left:auto;bottom:10px;width:min(440px,calc(100vw - 32px))}
+ .creation-stage .chamber-shell{width:96vw}.creation-intro{padding-bottom:12px}.creation-stage,.creation-lock .creation-stage{padding:14px 0 24px}
+ .comparison-board{margin-top:-40px;transform:none}.comparison-tilt{transform:rotate(2deg)}
+ .review-track{padding-top:65px;padding-bottom:70px}.review-note{transform:rotate(5deg)}.review-note:nth-child(2),.review-note:nth-child(4){transform:rotate(-5deg);margin-top:30px}.review-paper{min-height:340px;padding:15cqw 11cqw 10cqw}.review-paper blockquote{font-size:16px}.review-author h3{font-size:21px}.review-author p{font-size:14px}.review-tape{min-height:0;max-height:none}
+}
+body.less-motion .description-floor{margin-bottom:0!important;background:#080f65}body.less-motion .story-stage{opacity:1!important}
+body.less-motion .comparison-tilt,body.less-motion .review-note{transform:none!important;transition:none}
+@media(prefers-reduced-motion:reduce){.description-floor.description-motion{margin-bottom:0;background:#080f65}.story-stage{opacity:1!important}.comparison-tilt,.review-note,.review-note:nth-child(2),.review-note:nth-child(4){transform:none!important;transition:none}.machine-layout .site-header,.machine-layout .elevator-panel{transition:none}}
+/* The transparent clipboard export has a 31px top margin: compensate for it. */
+.comparison-board{margin-top:calc(-40px - min(24.21px,2.126vw))}
+.comparison-tilt{transform:none}
+.machine-layout main{background:#fff1fb}
+@media(max-width:760px){.comparison-board{margin-top:calc(-40px - 2.657vw)}.comparison-tilt{transform:none}}
+@media(min-width:360px) and (max-width:760px){.machine-nav .nav-profile{display:flex}}
+
+@media(max-width:760px){.machine-nav .nav-profile{display:flex}}
+@media(max-width:359px){.machine-nav .wordmark{font-size:19px}}
+/* Current floor only: a quiet circular marker on the right. */
+.machine-layout .elevator-panel{width:64px;right:24px;bottom:24px;overflow:visible}
+.machine-layout .current-floor-button{display:grid;place-items:center;width:64px;height:64px;min-width:44px;min-height:44px;border:2px solid #080f82;border-radius:50%;background:#fc8cf6;color:#080f82;font:700 25px/1 Outfit,Arial,sans-serif;box-shadow:inset 0 0 12px #fff6;transition:background-color .2s,box-shadow .2s}
+.current-floor-button:hover{background:#ffe5fc;box-shadow:inset 0 0 16px #fff9}.current-floor-button:focus-visible{outline:3px solid #fc8cf6;outline-offset:5px}
+/* Keep the star inline with the text as the word wraps and changes perspective. */
+.description-floor .story-copy .delicious-word{padding-right:1.75em}
+.description-floor .story-copy .story-star-delicious{left:auto;right:0;top:50%;bottom:auto;width:1.55em;height:1.6em;translate:0 -50%;--softness:0px}
+.comparison-tilt{transform:rotate(6deg)}
+.comparison-board:hover .comparison-tilt,.comparison-board:focus-visible .comparison-tilt{transform:rotate(-6deg)}
+/* Preserve 2.5-card visibility while allowing for the rotated paper edges. */
+.review-track{--review-gap:clamp(60px,5vw,96px);gap:var(--review-gap);padding-top:85px;padding-bottom:105px}
+.review-note{flex-basis:calc((96vw - var(--review-gap) - var(--review-gap))/2.5)}
+.review-paper{background:#fdfdfc url('/assets/review-paper-texture.webp') center/320px 320px repeat;min-height:79cqw;padding:15cqw 12cqw 10cqw}
+.review-paper blockquote{font-size:clamp(17px,1.55vw,23px);font-weight:600;line-height:1.32;letter-spacing:-.035em}
+.review-author h3{font-family:Outfit,Arial,sans-serif;font-weight:700;letter-spacing:-.035em}
+.review-tape{top:-6cqw;left:10.5%;width:6cqw;height:14.5cqw;background:#080f82}
+.review-rating .gummy-rating{display:flex;gap:5px;align-items:center;letter-spacing:0}
+.gummy-rating img{width:25px;height:27px;object-fit:contain}
+.product-floor .section-heading{display:block;text-align:center}.product-floor .section-heading>div{width:100%}
+.lab-monitor h3{margin-top:0}.lab-monitor .monitor-bottom{margin-top:18px}
+.reference-pipeline{padding-bottom:0}.packing-bin{top:50%}
+.headline-tilt{display:block;transform-origin:50% 50%;backface-visibility:hidden}
+.footer-top{justify-content:flex-end}
+@media(max-width:1100px){.review-note{flex-basis:calc((96vw - var(--review-gap) - var(--review-gap))/2.5)}}
+@media(max-width:760px){
+ .machine-layout .elevator-panel{width:52px;right:16px;bottom:16px;left:auto}.machine-layout .current-floor-button{width:52px;height:52px;font-size:22px}
+ .comparison-tilt{transform:rotate(4deg)}
+ .review-track{--review-gap:42px;gap:var(--review-gap);padding-top:65px;padding-bottom:80px}.review-note{flex-basis:78vw}.review-paper{min-height:340px;padding:15cqw 11cqw 10cqw}.review-paper blockquote{font-size:16px}
+ .gummy-rating img{width:21px;height:23px}.lab-monitor{display:block}.lab-monitor h3{margin:0}.packing-bin{top:50%}
+}
+@media(prefers-reduced-motion:reduce){.headline-tilt{transform:none!important}.comparison-tilt{transform:none!important}}
+body.less-motion .headline-tilt{transform:none!important}
+/* Let white show through the paper fibers rather than tinting the whole card. */
+.review-paper{background:#fff}
+.review-paper:before{display:block;content:'';position:absolute;inset:0;width:100%;height:100%;border-radius:0;background:url('/assets/review-paper-texture.webp') center/320px 320px repeat;opacity:.5;z-index:0;pointer-events:none}
+.review-paper>*{position:relative;z-index:1}

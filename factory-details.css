@@ -1,0 +1,29 @@
+/* nwl.png: equal 4:5 panels, navy strokes, generous white breathing room. */
+.glow-delivery{position:relative;padding:128px 6% 128px;background:#fff;color:#080f82;isolation:isolate}
+.delivery-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;max-width:1270px;margin:auto}
+.delivery-panel{min-width:0;border:3px solid #080f82;border-radius:40px;overflow:hidden;aspect-ratio:4/5;background:#fff}
+.delivery-copy{display:flex;align-items:flex-start;flex-direction:column;justify-content:center;padding:clamp(32px,5vw,72px)}
+.delivery-copy h2{font:400 clamp(36px,5.65vw,82px)/.99 Anton,Impact,sans-serif;letter-spacing:-.045em;margin:0 0 clamp(24px,3.5vw,50px);width:100%;white-space:nowrap}
+.delivery-copy p{font:600 clamp(17px,2.22vw,32px)/1.2 Outfit,sans-serif;letter-spacing:-.02em;margin:0 0 clamp(24px,3.1vw,44px)}
+.delivery-shop{display:inline-flex;align-items:center;justify-content:center;min-height:70px;min-width:200px;padding:16px 28px;border:3px solid #080f82;border-radius:999px;font:700 18px/1 Outfit,sans-serif;transition:background-color .2s cubic-bezier(.22,1,.36,1),color .2s cubic-bezier(.22,1,.36,1),transform .25s cubic-bezier(.22,1,.36,1)}
+.delivery-shop:focus-visible{outline:3px solid #080f82;outline-offset:5px}.delivery-shop:active{transform:scale(.97)}
+.delivery-image{background:#fff6fc}.delivery-image img{width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.22,1,.36,1)}
+@media(hover:hover) and (pointer:fine){.delivery-shop:hover{background:#080f82;color:#fc8cf6;transform:translateY(-3px)}.delivery-image:hover img{transform:scale(1.025)}}
+@media(max-width:1000px){.glow-delivery{padding:80px 5%}.delivery-grid{gap:24px}.delivery-panel{border-radius:30px}.delivery-copy{padding:32px}.delivery-copy h2{font-size:5.35vw;margin-bottom:28px}.delivery-copy p{font-size:2.1vw;margin-bottom:28px}.delivery-shop{min-width:150px;min-height:52px;font-size:15px}}
+@media(max-width:700px){.glow-delivery{padding:64px 6%}.delivery-grid{grid-template-columns:1fr;gap:24px;max-width:520px}.delivery-panel{border-radius:28px}.delivery-copy{aspect-ratio:auto;min-height:470px;padding:40px 32px}.delivery-copy h2{font-size:clamp(40px,10.5vw,64px);margin-bottom:30px}.delivery-copy p{font-size:clamp(19px,4.6vw,25px);margin-bottom:30px}.delivery-shop{min-height:56px;min-width:170px}.delivery-image{aspect-ratio:4/5}}
+@media(max-width:359px){.delivery-copy{padding:32px 22px}.delivery-copy h2{font-size:10.5vw}}
+/* The lens is an inert, clipped copy: original review text and native scrolling stay intact. */
+.review-lens{position:fixed;left:0;top:0;z-index:70;width:224px;height:224px;pointer-events:none;opacity:0;visibility:hidden;transition:opacity .16s cubic-bezier(.22,1,.36,1);filter:drop-shadow(0 8px 12px #080f8233)}
+.review-lens.is-visible{opacity:1;visibility:visible}
+.review-lens:after{content:'';position:absolute;width:40px;height:12px;right:-15px;bottom:1px;border:2px solid #080f82;border-radius:8px;background:#fc8cf6;transform:rotate(45deg);transform-origin:0 50%}
+.review-lens-glass{position:absolute;inset:0;overflow:hidden;border:3px solid #080f82;border-radius:50%;background:#fff5fc;isolation:isolate}
+.review-lens-glass:after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 5px #ffffff80,inset 5px 5px 14px #fff5;pointer-events:none}
+.review-lens-layer{position:absolute;inset:0 auto auto 0;transform-origin:0 0}
+.review-lens .review-note{position:absolute!important;left:0!important;top:0!important;margin:0!important;flex:none!important;max-width:none!important;min-width:0!important;pointer-events:none!important}
+@media(hover:hover) and (pointer:fine){#review-track.lens-active,#review-track.lens-active *{cursor:none}}
+body.less-motion .review-lens{display:none}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.review-lens{display:none!important}}
+@media(prefers-reduced-motion:reduce){.delivery-shop,.delivery-image img{transition:none!important;transform:none!important}}
+body.less-motion .delivery-shop,body.less-motion .delivery-image img{transition:none!important;transform:none!important}
+/* Size the long second line against the actual panel interior at every breakpoint. */
+.delivery-copy{container-type:inline-size}.delivery-copy h2{font-size:clamp(32px,16.5cqw,82px)}

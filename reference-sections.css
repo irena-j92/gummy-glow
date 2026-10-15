@@ -1,0 +1,62 @@
+/* Exact flat colors sampled from the three supplied reference exports. */
+.reference-pipeline{height:auto;min-height:0;max-height:none;background:#fc8cf6;padding:0 0 44px;overflow:hidden;isolation:isolate}
+.pipe-visual{position:relative;width:min(100%,1100px);aspect-ratio:1440/1220;margin:auto;overflow:hidden}
+.reference-pipeline .pipeline-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;filter:none;transform:none}
+.live-pipeline .reference-pipeline .pipeline-poster{opacity:0}
+.reference-pipeline .pipe-controls{position:relative;left:auto;right:auto;bottom:auto;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px;width:90%;margin:24px auto 0;z-index:8;color:#080f82}
+.reference-pipeline .pipe-controls button{min-height:44px;padding:12px 20px;border:1px solid #080f82;border-radius:4px;background:#fff6;font-size:13px}.reference-pipeline .pipe-controls button:hover{background:#fff}.reference-pipeline .pipe-controls p{flex-basis:100%;text-align:center;font-size:12px;line-height:1.5;margin:0;min-height:18px}
+.comparison-floor{background:#fff;padding:100px 0 110px;overflow:hidden;color:#080f82}
+.comparison-heading{text-align:center;font:400 clamp(68px,11.6vw,174px)/.93 Anton,Impact,sans-serif;letter-spacing:-.035em;width:94%;margin:0 auto;position:relative;z-index:0}.comparison-heading span{display:block}
+.comparison-board{position:relative;width:min(820px,72%);aspect-ratio:1050/1498;margin:-12px auto 0;transform:rotate(6deg);container-type:inline-size;z-index:1}
+.clipboard-image{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:contain}
+.clipboard-content{position:absolute;left:10.5%;top:17%;width:77.6%;height:70.5%;display:flex;flex-direction:column;align-items:stretch}
+.clipboard-content h3{font:400 5.2cqw/1.05 Anton,Impact,sans-serif;text-align:center;letter-spacing:-.01em;margin:0 0 5%;height:11%;flex-shrink:0}
+.comparison-table-wrap{border:2px solid #080f82;border-radius:20px;overflow:hidden;background:#fff;flex:1;min-height:0}
+.comparison-table{width:100%;height:100%;table-layout:fixed;border-collapse:collapse;font:700 clamp(9px,2cqw,18px)/1.15 Outfit,Arial,sans-serif;text-transform:uppercase;text-align:left}
+.feature-column{width:64%}.glow-column{width:17%}.other-column{width:19%}
+.comparison-table th,.comparison-table td{padding:8px 3%;vertical-align:middle}.comparison-table tbody tr:not(:last-child){border-bottom:2px solid #080f82}.comparison-table tbody th{font-weight:700}.comparison-table thead th{font-size:clamp(8px,1.8cqw,15px);text-align:center;line-height:1.08;height:8%}.comparison-table thead th:first-child{border-bottom:2px solid #080f82}.comparison-table .glow-value{background:#080f82;color:#fc8cf6;text-align:center}.comparison-table .glow-value svg{display:block;width:clamp(16px,4cqw,34px);height:clamp(16px,4cqw,34px);margin:auto;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.other-value{text-align:center;font-size:clamp(21px,4cqw,36px);font-weight:400}
+.reviews-floor{background:#ffd8fd;color:#080f82;padding:90px 0 80px;overflow:hidden}
+.reviews-heading{text-align:center;padding:0 5%;margin-bottom:28px}.reviews-heading h2{font:400 clamp(54px,9vw,134px)/1.04 Anton,Impact,sans-serif;letter-spacing:-.025em}.review-rating{display:flex;gap:16px;align-items:center;justify-content:center;font-size:15px;margin-top:28px}.review-rating>span:first-child{letter-spacing:4px;font-size:23px}
+.review-track{display:flex;gap:90px;overflow-x:auto;overflow-y:hidden;padding:95px max(7vw,calc((100vw - 1300px)/2)) 110px;padding-right:calc(100vw - min(74vw,880px) - max(7vw,calc((100vw - 1300px)/2)));scroll-padding-left:max(7vw,calc((100vw - 1300px)/2));scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#080f82 #ffd8fd;overscroll-behavior-x:contain}
+.review-note{position:relative;flex:0 0 min(74vw,880px);scroll-snap-align:start;transform:rotate(6deg);align-self:flex-start}.review-note:nth-child(2){transform:rotate(-6deg);margin-top:120px}.review-paper{position:relative;background:#fefefe;border-radius:10px;padding:13% 12% 10%;min-height:470px}
+.review-paper:before,.review-paper:after{content:'';position:absolute;top:24%;width:7%;height:18px;background:#ffd8fd;border-radius:50%}.review-paper:before{left:-1%}.review-paper:after{right:-1%;top:28%}
+.review-tape{position:absolute;z-index:2;width:6%;height:19%;min-height:70px;max-height:125px;top:-8%;left:10%;background:#080f82}
+.review-paper blockquote{margin:0;font:600 clamp(18px,2.15vw,29px)/1.34 Outfit,Arial,sans-serif;letter-spacing:-.02em}.review-author{display:flex;gap:20px;align-items:center;margin-top:42px}.review-avatar{display:grid;place-items:center;width:70px;height:70px;border:3px solid #080f82;border-radius:50%;background:#fc8cf6;font:400 34px Anton,Impact,sans-serif;flex-shrink:0}.avatar-sarah{background-image:url('/assets/reviews-reference.webp');background-size:1828.57% auto;background-position:15.857% 56.272%;background-repeat:no-repeat}.review-author h3{font:700 clamp(23px,2.7vw,36px)/1.1 Outfit,Arial,sans-serif;letter-spacing:-.02em}.review-author p{font-size:clamp(16px,1.9vw,25px);margin-top:5px}.review-controls{display:flex;justify-content:center;gap:24px;align-items:center;margin-top:12px;font-size:14px}.review-controls button{width:48px;height:48px;border:1px solid #080f82;border-radius:50%;font-size:27px}.review-controls button:hover{background:#080f82;color:#ffd8fd}.review-controls button:disabled{opacity:.3;cursor:default}
+@media(max-width:760px){
+ .reference-pipeline{padding-bottom:30px}.reference-pipeline .pipe-controls{margin-top:18px;gap:10px}.reference-pipeline .pipe-controls button{font-size:12px;padding:10px 14px}
+ .comparison-floor{padding:68px 0 74px}.comparison-heading{font-size:12vw;width:98%}.comparison-board{width:90%;margin:8px auto 0;transform:rotate(2deg)}.comparison-table-wrap{border-radius:10px;border-width:1px}.comparison-table tbody tr:not(:last-child),.comparison-table thead th:first-child{border-width:1px}.comparison-table{font-size:clamp(11px,3vw,13px)}.comparison-table th,.comparison-table td{padding:1px 2%}.clipboard-content h3{font-size:5.5cqw}.comparison-table thead th{font-size:clamp(7px,1.8cqw,12px)}
+ .reviews-floor{padding:68px 0 60px}.reviews-heading h2{font-size:11vw}.review-rating{font-size:13px;gap:12px;margin-top:20px}.review-rating>span:first-child{font-size:19px}.review-track{gap:32px;padding:60px 8vw 70px;scroll-padding-left:8vw}.review-note{flex-basis:84vw;transform:rotate(3deg)}.review-note:nth-child(2){transform:rotate(-3deg);margin-top:35px}.review-paper{padding:18% 10% 12%;min-height:430px;border-radius:5px}.review-paper blockquote{font-size:18px;line-height:1.38}.review-author{gap:14px;margin-top:30px}.review-avatar{width:52px;height:52px;font-size:27px;border-width:2px}.review-tape{min-height:64px;max-height:80px;width:7%;top:-6%;left:12%}.review-author h3{font-size:23px}.review-author p{font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.comparison-board{transform:none}.review-note,.review-note:nth-child(2){transform:none}.reference-pipeline .pipeline-poster{opacity:1!important}}
+/* The supplied outlined SVG is the authoritative visual table. */
+.comparison-table-wrap{display:flex;align-items:center;justify-content:center;border:0;border-radius:0;background:transparent;overflow:visible}
+.comparison-table-art{width:100%;height:100%;object-fit:contain;max-width:none}
+.comparison-table.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;clip-path:inset(50%)!important;white-space:nowrap!important;border:0!important}
+/* Four compact lab notes on desktop, native swipe below that width. */
+.review-track{gap:24px;padding:58px 4vw 55px;scroll-padding-left:4vw;scrollbar-width:none;-ms-overflow-style:none}
+.review-track::-webkit-scrollbar{display:none;width:0;height:0}
+.review-note{flex:0 0 calc((100% - 72px)/4);min-width:245px;transform:rotate(2deg);margin-top:0;align-self:stretch}
+.review-note:nth-child(2),.review-note:nth-child(4){transform:rotate(-2deg);margin-top:0}
+.review-paper{height:100%;min-height:330px;padding:42px 25px 28px;display:flex;flex-direction:column;border-radius:6px}
+.review-paper blockquote{font-size:clamp(15px,1.15vw,18px);line-height:1.5;letter-spacing:-.01em}
+.review-author{gap:12px;margin-top:auto;padding-top:28px}
+.review-avatar{width:43px;height:43px;border-width:2px;font-size:24px}
+.review-author h3{font-size:19px}.review-author p{font-size:13px;margin-top:4px}
+.review-tape{top:-22px;left:12%;width:17px;height:60px;min-height:0;max-height:none}
+.review-paper:before,.review-paper:after{height:10px;width:5%}
+.review-controls{margin-top:0;gap:20px}
+@media(max-width:1100px){.review-note{flex-basis:calc((100% - 48px)/3);min-width:250px}}
+@media(max-width:760px){.review-track{gap:20px;padding:50px 7vw 42px;scroll-padding-left:7vw}.review-note{flex-basis:78vw;min-width:0}.review-paper{min-height:330px;padding:42px 25px 28px}.review-paper blockquote{font-size:16px}.review-note:nth-child(2),.review-note:nth-child(4){margin-top:0}.review-tape{top:-22px;min-height:0;max-height:none}.review-author h3{font-size:19px}.review-author p{font-size:13px}}
+/* 2.5 notes visible: two complete cards and half of the next. */
+.review-track{padding-left:4vw;padding-right:0;gap:24px;scroll-snap-type:x proximity}
+.review-track:after{content:'';flex:0 0 4vw}
+.review-note{flex-basis:calc(38.4vw - 19.2px);min-width:0}
+@media(max-width:1100px){.review-note{flex-basis:calc(38.4vw - 19.2px);min-width:0}}
+@media(max-width:760px){.review-track{padding-left:7vw;padding-right:0;gap:20px}.review-track:after{flex-basis:7vw}.review-note{flex-basis:78vw;min-width:0}}
+
+.review-track{cursor:grab}.review-track.dragging{cursor:grabbing;user-select:none;scroll-snap-type:none}
+
+/* Same artwork width as the three Newbies chambers: outlet centers stay aligned. */
+.reference-pipeline .pipe-visual{width:min(100%,1400px);aspect-ratio:1600/1000}
+
+.reference-pipeline .pipe-visual{background:transparent}

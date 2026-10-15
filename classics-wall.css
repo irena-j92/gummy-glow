@@ -1,0 +1,39 @@
+/* Same 1400 px coordinate space as the pipes: centers at 17.5%, 50%, 82.5%. */
+.classics-machine{--chamber-gap:2.5%;width:min(1400px,100%);margin:0 auto;position:relative}
+.classics-scroll{width:100%;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;scroll-snap-type:x proximity;overscroll-behavior-x:contain;cursor:grab;touch-action:auto}
+.classics-scroll::-webkit-scrollbar{display:none}.classics-scroll.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.classics-scroll:focus-visible{outline:3px solid #080f82;outline-offset:6px}
+.classics-scroll .chamber-track{position:relative;display:flex;gap:var(--chamber-gap);width:100%;max-width:none;margin:0;aspect-ratio:auto}
+#classics .chamber{position:relative;min-width:0;flex:0 0 30%;scroll-snap-align:start;z-index:1;--cabinet:0}
+#classics .chamber:first-child{margin-left:2.5%}#classics .chamber:last-child{margin-right:2.5%}
+#classics .chamber[data-cabinet="1"]{--cabinet:1}#classics .chamber[data-cabinet="2"]{--cabinet:2}#classics .chamber[data-cabinet="3"]{--cabinet:3}
+#classics .chamber-window{aspect-ratio:512/849;width:100%;height:auto;overflow:hidden}
+.chamber-art{position:absolute;inset:0;overflow:hidden;pointer-events:none;mask:url('/assets/classics-cabinet-mask.svg') 0 0/100% 100% no-repeat;-webkit-mask:url('/assets/classics-cabinet-mask.svg') 0 0/100% 100% no-repeat}
+.classics-cabinet-image{position:absolute;top:0;left:calc(-100% * var(--cabinet));width:400%;height:100%;max-width:none;pointer-events:none}
+#classics .chamber-title{height:1px;inset:auto;padding:0;margin:0}
+#classics .chamber-product-link{left:7%;top:14%;width:86%;height:75%;overflow:hidden;display:flex;align-items:center;justify-content:center;border-radius:7%}
+#classics .chamber-pack{width:79%;height:84%;object-fit:contain;max-width:none;filter:drop-shadow(6px 14px 9px #702b6833)}
+#classics .chamber-product-link:focus-visible{outline:3px solid #080f82;outline-offset:-4px}
+#classics .chamber-glass{position:absolute;left:7%;top:14%;width:86%;height:75%;border-radius:7%;background:#FFE4FF;opacity:.2;z-index:5;pointer-events:none;transition:opacity .4s cubic-bezier(.22,1,.36,1)}
+#classics .chamber-window:focus-within .chamber-glass{opacity:0}
+@media(hover:hover) and (pointer:fine){#classics .chamber-window:hover .chamber-glass{opacity:0}}
+#classics .steam{bottom:12%;left:5%;right:5%;z-index:4}
+.classics-display{position:relative;display:block;width:100%;aspect-ratio:2048/173;min-height:44px;overflow:hidden;margin:0;line-height:0;isolation:isolate}
+.classics-display-image{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;pointer-events:none}
+.display-lettering{position:absolute;left:50%;top:52.5%;translate:-50% -50%;width:20%;height:35%;max-width:none;object-fit:contain;pointer-events:none;transition:filter .25s,opacity .25s}
+.classics-display:hover .display-lettering,.classics-display:focus-visible .display-lettering{filter:drop-shadow(0 0 6px #fc8cf6);opacity:.85}
+.classics-display:focus-visible{outline:3px solid #080f82;outline-offset:-4px}
+.classics-scroll img{user-select:none;-webkit-user-drag:none}
+/* Complete paper corners plus a gutter outside the rotated paper bounds. */
+.review-track{--review-gutter:max(4vw,48px);padding-left:var(--review-gutter);scroll-padding-left:var(--review-gutter)}
+.review-track:after{flex-basis:var(--review-gutter)}
+.review-note{flex-basis:calc((100vw - var(--review-gutter) - var(--review-gap) - var(--review-gap))/2.5)}
+@media(max-width:1100px){.review-note{flex-basis:calc((100vw - var(--review-gutter) - var(--review-gap) - var(--review-gap))/2.5)}}
+@media(max-width:760px){
+ .classics-machine{--chamber-gap:12px;width:96vw}#classics .chamber{flex-basis:calc((100% - var(--chamber-gap)) / 1.25)}
+ #classics .chamber:first-child{margin-left:0}#classics .chamber:last-child{margin-right:0}
+ .classics-display{aspect-ratio:auto;height:54px}.classics-display-image{left:50%;translate:-50% 0;width:auto;min-width:100%;height:100%;object-fit:cover}.display-lettering{width:126px;height:24px}
+ .review-track{--review-gutter:max(7vw,32px)}.review-note{flex-basis:78vw}
+}
+@media(prefers-reduced-motion:reduce){#classics .chamber-glass,.display-lettering{transition:none}}
+body.less-motion #classics .chamber-glass,body.less-motion .display-lettering{transition:none}

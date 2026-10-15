@@ -1,0 +1,11 @@
+# Pipeline visibility and swirl cleanup
+
+Removed the thermometer, pointer, mounting pipe, and its extra mounting collar, including the unused dial asset/load. Pipe silhouette strokes are now untonemapped white at 0.8 opacity in both WebGL and the still fallback.
+
+The candy-striped sleeves now use broad analytic shader bands, with derivative-based (fwidth) edge antialiasing, rather than a repeated 64px nearest-filtered bitmap. Sleeve geometry uses 320 longitudinal segments and 32 radial sides; other tubes have a minimum of 240 longitudinal segments. This targets stripe shimmer/moire and faceting. Actual GPU shimmer cannot be verified without a browser.
+
+All four supplied gummy photographs replace the procedural Gaussian blobs: pink swirl, blue star, orange piece and teal piece. Existing source photographs are resized/format-converted to local transparent PNG thumbnails under public/assets/pipe-gummies/, maximum 192px, preserving their silhouettes and aspect ratios. The same thumbnails serve the lazy WebGL texture load and are embedded once per type in the self-contained SVG fallback. PNG supports the static SVG rasterizer, which did not display the embedded WebP variants. No uploaded originals are changed. The WebGL nine-tap premultiplied-alpha sampling blur softens edges without black halos, while preserving the shapes; fallback blur is 1.5 scene pixels. Display size is 40px at the 1600px scene width, with opacity up to 0.98. Images retain their original color through an untonemapped material. All gummies fade before the fluid-only lower section.
+
+Liquid uses saturated packaging-family pink #F43CDB, blue #348FE7 and orange #FF8F26, a wider 0.116-radius core and 0.95 opacity. Slow broad waves vary brightness without mixing toward white. Lower ports remain aligned with the three Newbies chambers. Shared colors and gummy metadata live in public/pipe-style.js.
+
+Validation: full regression suite, material and image bindings, shader-hook expansion against vendored Three ShaderLib, no thermometer nodes, white stroke alpha, fluid colors, finite geometry, desktop/mobile viewport and pause/dispose/failure behavior; static SVG rasterized and visually inspected. Live browser/GPU/FPS verification unavailable.

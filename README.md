@@ -1,89 +1,51 @@
-# Gummy Glow
+# Gummy Glow — The Feel-Good Factory
 
-A standalone, responsive brand site. Production files live in `dist/`. No build step is required. All fonts, images, GSAP, and ScrollTrigger are served locally.
+A vitamin-gummy brand experience with a private Sites deployment, locally hosted artwork, GSAP scroll storytelling, and a Three.js glass pipeline.
 
-## Structure
-- `dist/index.html`: factory entry, claw hero, narrative, classics, blueprint, footer.
-- `dist/collection/index.html`: all four supplied flavors.
-- `dist/styles.css`: shared design tokens and mobile/reduced-motion layouts.
-- `dist/motion.js`: independent entry, hero, gallery, and blueprint scene functions.
-- `dist/assets/`: original supplied product artwork and matching generated scene assets.
+## Develop and check
 
-## Animation direction
-- Entry: image-load progress, pixel fill, factory zoom, hinged front doors, glass slide.
-- Hero: 1.8s descent, 0.3s grab, 1.7s lift, staggered gummy launches, 1.35s claw exit, then final gravity-like fall. Replay is available after completion.
-- Classics: pinned horizontal translation above 600px, natural vertical display on mobile. Pack landing uses GSAP bounce and a fading steam layer.
-- Blueprint: four facts fade before the mint and blue packages enter sequentially from opposite sides.
+```sh
+npm ci
+npm run build
+npm test
+```
 
-GSAP animates transforms and opacity; the small sprite count makes a WebGL renderer unnecessary. For a future interactive simulation with hundreds of bouncing candies, use a canvas/WebGL particle pool with fixed-step gravity and bounds collision, retaining DOM text and controls for accessibility.
+The build generates product pages and the pipeline's static fallback, then prepares `dist/client` and the Worker in `dist/server`. The Worker supplies page routes and `/api/subscribe`; newsletter storage requires the configured D1 binding. No payment processor or Instagram account is connected.
 
-Reduced motion follows the system preference and can be toggled in the navigation. The page remains readable if animation scripts fail. Entrance can be skipped by its button or Escape. Flavor copy is creative concept copy; no checkout or live commerce service is connected.
+## Current experience
 
-## Extension
-Append new semantic sections below the blueprint. Keep each new animation in its own function/context and clean up ScrollTriggers when changing motion preferences. Preserve anchor IDs for navigation.
+- Reception: supplied claw-machine frame, centered pouch delivery, three popcorn cycles of pink gummies, floor buttons 0–5.
+- Description: centered perspective tilt, zoom and upward exit; one empty viewport of scrolling before the creation section appears.
+- Creation: blueprint-to-gray-pouch scan, floating completed model, pink wall claws and an elevator arrival.
+- Comparison: supplied table artwork and overlapping clipboard with hover tilt.
+- Classics: enlarged, separately masked chambers; Watermelon, Blueberry and Pumpkin align with their pipe inlets, with Blueberry centered. Elderflower remains accessible horizontally. Glass dissolves on hover/focus.
+- Pipeline: six bends per pipe, reflective glass, large photographic gummies visible from the inlets, and three vivid liquid-only outlets aligned with Newbies. The section stays still as it scrolls into view; its #FC8CF6 background matches Classics.
+- Newbies, horizontally scrolling paper reviews with a magnifying lens, and overhead pouch packing.
+- JOIN THE FUN: six supplied portrait photos on a navy rope with pink clasps, subtle tilts/folds and pink Instagram marks. Mouse drag, touch and keyboard scrolling; a larger-photo viewer with previous/next controls and focus restoration.
+- Pink post-box feature and the supplied navy footer, including newsletter sign-up.
 
-## Validation
-JavaScript syntax and local asset/link targets checked. Browser-based visual QA was not available in the execution environment.
+There are no wave dividers. Header, scrolling, product shopping and gallery interactions respect reduced-motion preferences. The bag is saved locally; checkout and social profiles remain preview features.
 
-## Expansion (September 2026)
-The authoring directory is now `public/`. The original factory scenes and footer are retained. `expansion.css` and `expansion.js` add the flavor comparison, pipeline poster, two horizontal lab reports, Newbies monitors, manual three-slide carousel, arcade previews, and newsletter.
+## Source layout
 
-- Loader: Enter the factory plays the door sequence; Explore flavors opens the collection; Skip intro and Escape remain available. The loader waits for the visitor after assets load.
-- Gummies: four supplied transparent PNGs replace the old hue-rotated hero sprite. Those same files appear in the comparison, reviews, features, and arcade screens.
-- Table: provisional flavor table; no separate table reference was attached. No unprovided nutrient quantities or product claims were added.
-- Newbies: supplied three-chamber reference is used intact, with accessible HTML monitor links below. Collection links lead to the existing matching flavor pages; stick-specific product details await content.
-- Reviews: two supplied concept testimonials and the requested 124-review heading. Not connected to a review provider.
-- Pipeline: `public/assets/pipeline.webp` is the static video poster. Add a `<source>` to `.pipeline-media` and update the coming-soon caption when the film is ready; respect reduced motion for playback.
-- Arcade: four keyboard-accessible game preview dialogs; games are intentionally not implemented yet.
-- Newsletter: server validates email and explicit consent, normalizes/deduplicates addresses and persists them in D1 `newsletter_subscribers`. No email campaign service or welcome emails are connected. No public subscriber-list endpoint exists.
+- `public/`: browser source, generated collection/seven product pages, artwork, fonts and vendored libraries.
+- `public/pipe-layout.js`, `pipe-style.js`, `pipe-model.js`, `tour-webgl.js`: shared glass geometry, photo gummies and the lazy-loaded renderer.
+- `scripts/generate-pipe-fallback.mjs`: static/reduced-motion pipeline generated from the same geometry.
+- `public/description-motion.js`, `packing-motion.js`, `section-motion.js`: scroll choreography.
+- `public/community-gallery.*`: hanging-photo layout and accessible full-photo viewer.
+- `worker/`, `db/`, `drizzle/`: newsletter endpoint and schema.
+- `docs/` and `brand-spec.md`: reference measurements, asset decisions and implementation limits.
 
-## Build and storage
-`npm install`, `npm run db:generate` (only after schema changes), `npm run build`. The small Worker adds `/api/subscribe` without replacing the plain HTML frontend. `scripts/build.mjs` emits `dist/client`, `dist/server`, hosting metadata, and Drizzle migrations. D1 is logically bound as `DB`.
+The GitHub snapshot also mirrors `public/` at the repository root, retaining the repository's existing static-export layout. Serve that mirror at an origin root for its absolute asset paths. Static-only hosting does not run the newsletter Worker. Committing source does not change the private Sites audience or configure GitHub Pages.
 
-Backend checks: `node scripts/check-subscribe.mjs` after building. Tests use an in-memory SQLite database, not production subscriber records. Assets and footer preservation checked separately. Live visual browser QA was unavailable in this environment; desktop/mobile rules and interactive DOM state were checked locally.
+## Validation and performance
 
-## New scene assets
-Pipeline and mailbox were generated with built-in imagegen and converted to WebP for this site. Pipeline brief: glossy 16:9 pink factory, transparent glass pneumatic tubes and four distinct gummy shapes. Mailbox brief: reference-matched pink open postbox overflowing with supplied Gummy Glow packs, right-aligned against a pastel sky with calm left space for the form.
+`npm test` exercises actual GSAP timelines and Three.js geometry with rendering/DOM adapters. Checks cover navigation, six responsive hero geometries, one-screen description hold, six pipeline bends, chamber alignment, offscreen/hidden/reduced-motion shutdown, image-viewer controls, packing order, product routes/bag behavior, and newsletter success/failure states using in-memory storage.
 
-## Hero + Classics alignment update (September 29, 2026)
-- `factory-scenes.css` changes only the requested scenes. Hero base gradient is exactly `#080F82` to `#8B8DB0`; supplied `hero-pattern.png` is a subtle overlay masked out at the gradient endpoints.
-- Supplied `claw.png` retains its original transparent canvas. `scene-math.js` measures the visible prong tips against the pouch seal and centers the visible pouch bounds. Hero pouch and claw are now independent DOM layers.
-- Hero timing: descend 1.8s to image-top y=0; immediately lift for 1.7s; pouch stops at hero center at 3.5s; after 0.18s release pause, claw exits over 1.35s. Existing popcorn trajectories and staggering use only the pink sprite. Replay resets the complete sequence. Resizing resolves the scene to a stable centered pouch.
-- Classics supersedes the original pinned horizontal gallery: four contiguous full-height frames (four columns desktop, two-by-two on mobile), titles inside the existing image header panels, and all pouches dropping on one ScrollTrigger. The 0.8s first impact starts all pressure rings, flashes, and steam plumes together; recoil settles afterward.
-- Geometry assertions: `node scripts/check-scenes.mjs`. Validated visible pouch centering, prong overlap during lift, entry/exit bounds across six viewport sizes, four flavor windows, and pink-only hero sprites. Other sections and footer were checked for unchanged markup. Live browser visual verification remains unavailable.
+The pipeline shares one lazy-loaded WebGL context, caps rendering resolution, stops rendering when not visible or under reduced motion, and releases resources on disposal. All runtime fonts, scripts, photos and 3D resources are local. Community photos load lazily; the full-size image is requested only on opening the viewer.
 
-## Minimal hero refinement (September 30, 2026)
-The hero now contains only `VITAMMHMMMS` and animated artwork. Pouch visibility starts at zero in CSS and initialization, and is enabled only at pickup. Claw and pouch are enlarged together by 45%, subject to a mobile-width cap that keeps the visible grip inside the screen. Each pink gummy performs exactly three consecutive rise/fall cycles, then stays offscreen. The supplied swirl is an explicit image layer above the gradient, rendered in pale contrast so it remains visible. The navbar motion control has been removed; system reduced-motion preference is still respected. The navbar logo uses a top anchor (also from the collection page), and the factory intro is shown only once per tab session. Resize handling preserves an in-progress animation instead of prematurely revealing the pouch.
+Live browser visual verification and GPU/frame-rate measurements are unavailable in this managed environment. Programmatic checks do not establish real-browser appearance or FPS. See `docs/glass-material-reference.md` for the glass reference's missing external maps and the WebGL material approximation.
 
-## Blueprint materialization (September 30, 2026)
-Hero desktop sizes are now 770px for the complete claw image canvas and 560px tall for the undistorted pouch (about 347px wide, close to the requested 360px). Small viewports proportionally reduce both. The existing hidden-until-pickup behavior remains intact.
+## Hosting
 
-The blueprint scene now uses the supplied `blueprint.svg` and `pouch-packaging.png`. `blueprint-reveal.css` aligns the SVG to the photograph's visible bounds inside a shared 640×1085 artboard. Complementary CSS masks reveal the realistic pouch from top to bottom while removing the underlying drawing at the same soft boundary. The feather spans 5% of the displayed height, leaving the completed artwork sharp. One fact on each side fades in and remains present. A single pinned scrub timeline replaces the earlier fade-out / sliding-package sequence, including on mobile. System reduced-motion displays the completed pouch and both facts without pinning.
-
-Verified scene dimensions, centered grip math, original SVG preservation, two-fact structure, mask direction, and existing hero lifecycle. Live browser visual testing remains unavailable.
-
-### September 30 — section flow and claw-machine entrance
-- Page order: Hero, description, blueprint, flavor table, Classics, reviews, pipeline, Newbies, features, arcade, newsletter, original footer. Blueprint pin is registered before the following scroll scenes.
-- Description uses all four supplied gummy types, scattered around the text with smaller mobile positions.
-- Hero pouch holds its grip through the lift, then rotates clockwise 12 degrees around its visible center after release. It remains centered and retains the three-cycle pink-only popcorn sequence.
-- Intro uses a transparent-background edit of the supplied blue claw-machine image. Removed progress bar, automatic loading progression, extra entry/skip controls, and old door transition markup. The Enter button starts a 1.25-second zoom with blur and an overlapping .75-second dissolve. Session bypass and logo-to-top behavior remain; session completion is recorded after entry. Reduced-motion visitors also enter by button, without zoom/blur.
-- Validation: viewport geometry/centering and grip checks, DOM entry timeline and section-order checks, existing carousel/review/dialog controls, asset paths, unchanged footer, and production build. Browser visual QA was unavailable.
-
-### October 3 — interactive factory tour
-The homepage now follows a continuous factory narrative with eleven destinations, from Reception to Dispatch. A persistent elevator instrument shows the active floor, scroll progress, travel direction, and accessible floor links. Chromed WebGL rails and floor edges travel past the viewport as the page descends. Each floor has distinct lighting, a threshold, and coordinated GSAP reveals.
-
-A locally vendored Three.js r170 renderer creates a flexible pouch with bowed front and back walls, volume, separate foil walls, bottom and side seals, a detachable printed tear strip, and an actual opening. The original supplied front texture is unchanged; the back and foil are approximations. After the existing claw delivery, scrolling tears away the strip, opens the pouch, tilts the opening forward, and enlarges it into the pink description floor. Pose curves live in `public/tour-math.js`; geometry lives in `public/pouch-model.js`.
-
-The transit floor uses real curved transparent Three.js pipes, metallic collars and the four supplied gummy graphics moving through the tubes. The images are sprites in a genuine 3D pipe scene. The pipeline poster is the non-WebGL fallback. The tasting bench selects among all four flavors and updates the pouch, gummy, notes and collection destination. The arcade Memory cabinet now plays an eight-card, four-pair game; other cabinet previews retain their planned state.
-
-No new marketing claims, purchase backend, tracking, audio, or external runtime CDN were added. The existing collection, blueprint mask, simultaneous four-pouch drop, reviews, manual feature carousel, newsletter persistence and original footer remain. Rendering uses capped pixel ratios and only renders continuously while the moving pipeline is visible. Hidden tabs stop rendering. Reduced-motion visitors get the unpinned image experience and retain every control. Failed WebGL setup leaves image fallbacks available.
-
-Checks: real pouch vertices at seven poses, opening depth, animation endpoints, eleven floor destinations, local asset paths, complete memory-game round and restart isolation, flavor controls, original hero/controls, subscription backend and production build. Live browser visual QA was unavailable. The existing Sites source connection was recovered before publication.
-
-### October 12 — usable private tour refinement
-- Delivery and opening now have an explicit handoff. Scrolling before the claw releases the pouch leaves the 3D opening at its first pose; the remaining pinned distance begins after delivery. Repeated delivery signals during resizing retain progress.
-- The elevator includes stage instructions and a Next floor shortcut. Destination headings receive keyboard focus; mobile controls have 44px-or-larger targets, fit a 320px viewport and account for the bottom safe area.
-- Late WebGL readiness preserves the current floor position when pin spacing changes. Reduced motion clears the hero dissolve and title overrides.
-- Pipes load only within 800px of the transit floor. Small screens use lightweight shaft rails instead of a third WebGL context. Pixel ratio is capped and recalculated on resize. Static scenes render on demand; moving pipes run only while visible; hidden tabs cancel rendering. Context loss and drawing failure restore the supplied pouch/poster fallbacks.
-- `npm test` checks real pouch geometry, original hero/claw alignment at six viewports, delivery/scroll ordering, resize continuity, late pin positioning, elevator navigation and keyboard focus, four flavor selections, memory-game restart isolation, existing review/carousel controls, reduced motion, and rendering allocation/scheduling/failures at four viewport sizes. Renderer assertions use a stub: GPU rendering, visual layout and real-device frame rate are not verified by these tests. The CPU pouch-morph benchmark measured about 2.7ms/update in this environment.
-- Existing newsletter persistence and owner-only Sites access remain. No GitHub writes or changes to other external systems were made for this refinement.
+`.openai/hosting.json` identifies the existing owner-private Sites project. The Sites workflow builds and deploys the exact synchronized source state while preserving owner-only access. GitHub source synchronization is performed when requested; it does not change that hosting access policy.

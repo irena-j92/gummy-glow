@@ -1,0 +1,35 @@
+.community-floor{position:relative;overflow:hidden;background:#fff1fb;color:#080f82;padding:100px 0 62px}
+.community-heading{font:400 clamp(64px,9vw,132px)/1.03 Anton,Impact,sans-serif;letter-spacing:-.035em;text-align:center;margin:0 5% 48px}
+.social-scroll{--photo-width:clamp(210px,19vw,310px);--photo-gap:clamp(36px,4vw,64px);overflow-x:auto;overflow-y:hidden;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab;scroll-snap-type:x proximity;scroll-padding-left:calc(var(--photo-gap)/2);touch-action:auto}
+.social-scroll::-webkit-scrollbar{display:none}.social-scroll.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+.social-scroll:focus-visible{outline:3px solid #080f82;outline-offset:-5px}
+.photo-line{position:relative;display:grid;grid-template-columns:repeat(6,var(--photo-width));align-items:start;column-gap:var(--photo-gap);padding:0 calc(var(--photo-gap)/2) 58px;width:max-content;min-width:100%}
+.photo-rope{position:absolute;left:0;top:0;width:100%;height:120px;overflow:visible;pointer-events:none;filter:drop-shadow(0 3px 2px #080f8226)}
+.photo-hanger{position:relative;margin:calc(var(--hang-y) + 20px) 0 0;min-width:0;scroll-snap-align:start}
+.photo-swing{position:relative;transform:rotate(var(--tilt));transform-origin:50% -20px;transition:transform .65s cubic-bezier(.22,1,.36,1);filter:drop-shadow(5px 14px 11px #36204b2b)}
+.photo-post{display:block;position:relative;outline-offset:7px;-webkit-user-drag:none;touch-action:auto}
+.photo-post:focus-visible{outline:3px solid #080f82}
+.photo-paper{display:block;position:relative;aspect-ratio:2/3;overflow:hidden;background:#fc8cf6}
+.photo-paper>img{display:block;width:100%;height:100%;max-width:none;object-fit:cover;object-position:var(--photo-position,50% 50%);user-select:none;-webkit-user-drag:none}
+.photo-fold .photo-paper{clip-path:polygon(0 0,100% 0,100% 100%,20px 100%,0 calc(100% - 20px))}
+.photo-fold .photo-paper:after{content:"";position:absolute;left:0;bottom:0;width:20px;height:20px;clip-path:polygon(0 0,100% 0,100% 100%);background:linear-gradient(135deg,#e8dce8,#fff8fd 52%,#c9b4ca);box-shadow:2px -2px 4px #080f8226;pointer-events:none}
+.photo-instagram{position:absolute;right:12px;bottom:12px;display:block;width:26px;height:26px;color:#fc8cf6;filter:drop-shadow(0 1px 2px #080f8299);pointer-events:none}
+.photo-instagram svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+/* A pink plastic peg grips the print and crosses the rope at its pivot. */
+.photo-clasp{position:absolute;left:50%;top:-48px;translate:-50% 0;width:22px;height:72px;z-index:3;pointer-events:none;transform:rotate(-2deg);filter:drop-shadow(2px 3px 2px #4b13534a)}
+.photo-clasp:before,.photo-clasp:after{content:"";position:absolute;top:0;height:100%;width:12px;border-radius:3px 3px 2px 2px;background:linear-gradient(90deg,#ce4da4,#ffb7ec 30%,#f67dcc 65%,#d955ae);box-shadow:inset 0 1px 1px #fff9,inset 0 -2px 1px #b7458c}
+.photo-clasp:before{left:0;transform:rotate(2deg);transform-origin:50% 38%}.photo-clasp:after{right:0;transform:rotate(-2deg);transform-origin:50% 38%}
+.photo-clasp i{position:absolute;z-index:2;left:0;right:0;top:37px;height:7px;border-top:2px solid #6a3d78;border-bottom:2px solid #6a3d78;box-shadow:0 1px 0 #ffd1f7}
+.photo-clasp i:after{content:"";position:absolute;left:7px;top:-3px;width:7px;height:9px;border:2px solid #6a3d78;border-radius:50%;background:#ee8dd3}
+@media(hover:hover) and (pointer:fine){.photo-post:hover{cursor:zoom-in}.photo-swing:hover,.photo-swing:focus-within{transform:rotate(calc(var(--tilt) * .3))}}
+.photo-dialog{position:fixed;inset:0;width:min(1050px,100%);height:100dvh;max-width:100%;max-height:100dvh;padding:62px 62px 54px;margin:auto;border:0;background:transparent;color:#fc8cf6;overflow:hidden}
+.photo-dialog::backdrop{background:#080f82e8;backdrop-filter:blur(10px)}
+.photo-dialog-image{display:block;width:100%;height:100%;max-width:100%;object-fit:contain;filter:drop-shadow(0 14px 35px #02052b80)}
+.photo-dialog button{position:absolute;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:#fc8cf6;color:#080f82;font:400 30px/1 Outfit,sans-serif;z-index:2;transition:background .2s,transform .2s}
+.photo-dialog button:hover{background:#ffe4ff;transform:scale(1.05)}.photo-dialog button:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.photo-dialog-close{right:18px;top:12px}.photo-dialog-prev{left:9px;top:calc(50% - 23px)}.photo-dialog-next{right:9px;top:calc(50% - 23px)}
+.photo-dialog-status{position:absolute;left:0;right:0;bottom:16px;text-align:center;font:600 13px/1.3 Outfit,sans-serif;letter-spacing:.05em}
+body.photo-viewing{overflow:hidden}
+@media(max-width:760px){.community-floor{padding:68px 0 32px}.community-heading{font-size:clamp(52px,12vw,82px);margin-bottom:30px}.social-scroll{--photo-width:66vw;--photo-gap:28px}.photo-line{padding-bottom:42px}.photo-dialog{padding:68px 12px 76px}.photo-dialog-prev,.photo-dialog-next{top:auto;bottom:14px}.photo-dialog-prev{left:calc(50% - 96px)}.photo-dialog-next{right:calc(50% - 96px)}.photo-dialog-status{bottom:29px;left:calc(50% - 40px);right:auto;width:80px}}
+@media(prefers-reduced-motion:reduce){.photo-swing,.photo-swing:hover,.photo-swing:focus-within{transform:rotate(var(--tilt));transition:none}.photo-dialog button{transition:none}}
+body.less-motion .photo-swing{transition:none}body.less-motion .photo-swing:hover,body.less-motion .photo-swing:focus-within{transform:rotate(var(--tilt))}

@@ -1,0 +1,38 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {parseHTML} from 'linkedom';
+import {bindCommunityGallery} from '../public/community-gallery.js';
+
+const html=fs.readFileSync('public/index.html','utf8'),{document,window}=parseHTML(html);
+const gallery=document.querySelector('#community'),track=gallery.querySelector('.social-scroll'),dialog=document.querySelector('#photo-dialog');
+assert.equal(document.querySelector('#packing').nextElementSibling,gallery);
+assert.equal(gallery.nextElementSibling.id,'glow-delivery');
+assert.equal(gallery.querySelector('h2').textContent,'JOIN THE FUN');
+const links=[...gallery.querySelectorAll('.photo-post')];
+assert.equal(links.length,6);assert.equal(gallery.querySelectorAll('.photo-clasp').length,6);assert.equal(gallery.querySelectorAll('.photo-instagram').length,6);assert.equal(gallery.querySelectorAll('.photo-fold').length,2);
+assert.equal(gallery.querySelector('.photo-rope').getAttribute('aria-hidden'),'true');
+for(const link of links){assert.ok(fs.existsSync('public'+link.getAttribute('href')));const photo=link.querySelector('img');assert.ok(fs.existsSync('public'+photo.getAttribute('src')));assert.ok(photo.alt);assert.equal(photo.getAttribute('loading'),'lazy');}
+assert.ok(!html.includes('section-waves.css'));assert.ok(!fs.existsSync('public/section-waves.css'));assert.ok(!fs.existsSync('public/assets/wave-element.png'));
+let focused=null,shows=0;dialog.open=false;
+dialog.showModal=()=>{dialog.open=true;shows++;};
+dialog.close=()=>{dialog.open=false;dialog.dispatchEvent(new window.Event('close'));};
+links.forEach(link=>link.focus=()=>{focused=link;});
+Object.assign(track,{scrollWidth:1860,clientWidth:1000,scrollLeft:0});
+track.scrollTo=({left,behavior})=>{track.scrollLeft=left;track.behavior=behavior;};
+[...track.querySelectorAll('.photo-hanger')].forEach((item,i)=>item.getBoundingClientRect=()=>({left:25+i*310-track.scrollLeft,width:280}));
+const emit=(target,name,props={})=>{const e=new window.Event(name,{bubbles:true,cancelable:true});Object.assign(e,props);target.dispatchEvent(e);return e;};
+bindCommunityGallery(document,{reduced:()=>true});
+emit(track,'keydown',{key:'ArrowRight'});assert.equal(track.scrollLeft,310);assert.equal(track.behavior,'instant');
+emit(track,'keydown',{key:'End'});assert.equal(track.scrollLeft,860);emit(track,'keydown',{key:'Home'});assert.equal(track.scrollLeft,0);
+emit(links[0],'click');assert.ok(dialog.open);assert.ok(document.body.classList.contains('photo-viewing'));assert.equal(shows,1);
+const image=dialog.querySelector('.photo-dialog-image'),status=dialog.querySelector('.photo-dialog-status');
+assert.equal(image.getAttribute('src'),links[0].getAttribute('href'));assert.equal(image.alt,links[0].querySelector('img').alt);assert.equal(status.textContent,'1 / 6');
+emit(dialog.querySelector('.photo-dialog-prev'),'click');assert.equal(status.textContent,'6 / 6');
+emit(dialog,'keydown',{key:'ArrowRight'});assert.equal(status.textContent,'1 / 6');
+emit(dialog.querySelector('.photo-dialog-next'),'click');assert.equal(status.textContent,'2 / 6');
+emit(dialog.querySelector('.photo-dialog-close'),'click');assert.ok(!dialog.open);assert.ok(!document.body.classList.contains('photo-viewing'));assert.equal(focused,links[0]);assert.equal(image.getAttribute('src'),null);
+emit(links[2],'click',{metaKey:true});assert.equal(shows,1,'Modified click preserves ordinary image-link behavior');
+emit(links[2],'click');assert.equal(status.textContent,'3 / 6');emit(dialog,'click');assert.ok(!dialog.open,'Backdrop/padding click closes the viewer');assert.equal(focused,links[2]);
+dialog.showModal=undefined;assert.ok(!emit(links[4],'click').defaultPrevented,'Browsers without dialog support retain the ordinary full-photo link');
+assert.equal(bindCommunityGallery(parseHTML('<html><body></body></html>').document),null);
+console.log('PASS: six supplied local photos, packing → gallery → delivery order, six pink Instagram markers/clasps, folds, removed waves, horizontal keyboard bounds, full-image viewer, next/previous wrap, close/focus restoration, modified clicks and native-link fallback.');

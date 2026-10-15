@@ -18,3 +18,6 @@ export function floorAt(stops, scroll, viewport) {
   for(let i=0;i<stops.length;i++) if(stops[i]<=scroll+viewport*.38) found=i;
   return found;
 }
+
+// Hold the blueprint, scan down, then allow the completed pouch to float.
+export function creationReveal(progress){return -.06+1.12*clamp((progress-.14)/.42);}
