@@ -1,0 +1,44 @@
+:root{--experience-ease:cubic-bezier(.22,1,.36,1);--experience-spring:linear(0,.06,.24,.51,.77,.94,1.035,1.045,1.025,1.008,1);--experience-ink:#080f82}
+#classics{overflow:clip}
+/* The elevator doors arrive with the chamber, then part to expose the blueprint. */
+.lab-hatch{display:none;position:absolute;inset:0;z-index:15;pointer-events:none;overflow:hidden;border-radius:2.5%}
+.experience-on .lab-hatch{display:flex}
+.lab-hatch-panel{position:relative;display:grid;place-content:center;gap:14px;width:50%;height:100%;background:linear-gradient(100deg,#fca2ea,#f6c7f0 45%,#ed7dda);border:2px solid #c93b9a;box-shadow:inset 0 0 0 8px #fff3}
+.lab-hatch-panel b{font:400 clamp(20px,3vw,46px)/1 Anton,sans-serif;color:#080f82;text-align:center}
+.lab-hatch-panel small{font:600 clamp(8px,.9vw,13px)/1.3 monospace;text-align:center;letter-spacing:.06em}
+.lab-hatch-panel span{display:block;width:72px;height:3px;background:#080f82;margin:auto;box-shadow:0 8px #080f82,0 -8px #080f82;opacity:.35}
+/* The existing floor circle becomes a factory pass, without adding another fixed control. */
+.factory-pass{position:fixed;inset:0 0 0 auto;width:min(540px,100%);height:100dvh;max-height:100dvh;max-width:100%;margin:0;padding:36px clamp(24px,4vw,46px);background:#fff1fb;color:#080f82;border:0;overflow-y:auto;box-shadow:-12px 0 40px #080f8233}
+.factory-pass::backdrop{background:#080f8280;backdrop-filter:blur(5px)}
+.factory-pass-top{display:flex;align-items:center;justify-content:space-between;border-bottom:2px dashed #080f8266;padding-bottom:22px;margin-bottom:28px;font:600 11px/1 monospace;letter-spacing:.06em}
+.factory-pass-close{width:44px;height:44px;border:1px solid #080f82;border-radius:50%;font-size:27px;line-height:1}
+.factory-pass h2{font:400 clamp(48px,7vw,74px)/.98 Anton,sans-serif;letter-spacing:-.035em;margin:0 0 18px}
+.factory-pass-intro{font:400 15px/1.4 Outfit,sans-serif;max-width:320px;margin-bottom:28px}
+.factory-pass-stops{display:grid;gap:7px}
+.factory-pass-stop{display:grid;grid-template-columns:42px 1fr auto;gap:14px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid #080f821f;font:500 16px/1.2 Outfit,sans-serif;transition:background-color .25s var(--experience-ease),transform .25s var(--experience-ease)}
+.factory-pass-stop b{display:grid;place-items:center;width:38px;height:38px;border:1px solid #080f82;border-radius:50%;font:600 15px/1 Outfit,sans-serif}
+.factory-pass-stop[aria-current="location"]{background:#fc8cf6;border-color:#080f82}.factory-pass-stop[aria-current="location"] b{background:#080f82;color:#fc8cf6;box-shadow:0 0 14px #fc8cf6}
+.factory-pass-stop:focus-visible,.factory-pass-close:focus-visible{outline:3px solid #080f82;outline-offset:3px}
+.factory-pass-foot{display:flex;gap:20px;align-items:center;justify-content:space-between;margin-top:30px;padding-top:20px;border-top:2px dashed #080f8266;font:600 10px/1.3 monospace;letter-spacing:.03em}
+.factory-pass-motion{border-bottom:1px solid currentColor;padding:8px 0;min-height:44px;font:600 11px/1.3 Outfit,sans-serif}
+.current-floor-button[aria-haspopup="dialog"]{cursor:pointer}
+/* Optional cross-document choreography. Navigation remains native everywhere. */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:experience-leave .24s var(--experience-ease) both}
+::view-transition-new(root){animation:experience-enter .35s var(--experience-ease) both}
+@keyframes experience-leave{to{opacity:0;transform:translateY(-14px)}}
+@keyframes experience-enter{from{opacity:0;transform:translateY(20px)}}
+body[data-product] #gallery-image{view-transition-name:glow-product}
+
+body.pass-open{overflow:hidden}
+html:has(body.less-motion)::view-transition-group(*),html:has(body.less-motion)::view-transition-old(*),html:has(body.less-motion)::view-transition-new(*){animation:none!important}
+/* A normal-flow hold avoids multiple ScrollTriggers competing to pin the chamber. */
+.creation-lock .creation-tunnel:after{content:'';display:block;height:280svh}
+.creation-lock .creation-tunnel>.creation-stage{position:sticky;top:0}
+body.less-motion .creation-tunnel:after{display:none}
+@media(prefers-reduced-motion:reduce){.creation-tunnel:after{display:none!important}}
+
+@media(hover:hover) and (pointer:fine){.factory-pass-stop:hover{background:#fbd8f6;transform:translateX(-3px)}.factory-pass-close:hover{background:#fc8cf6}}
+@media(max-width:600px){.factory-pass{padding-top:20px}.factory-pass-stop{font-size:14px;padding:8px 10px}}
+@media(prefers-reduced-motion:reduce){.factory-pass-stop{transition:none}.factory-pass-stop:hover{transform:none}.lab-hatch{display:none!important}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+body.less-motion .factory-pass-stop{transition:none}body.less-motion .factory-pass-stop:hover{transform:none}body.less-motion .lab-hatch{display:none!important}

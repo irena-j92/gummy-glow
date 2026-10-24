@@ -1,0 +1,37 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import {parseHTML} from 'linkedom';
+import {makeStickCreation} from '../public/stick-creation.js';
+import {makeHorizontalTrack} from '../public/horizontal-track.js';
+import {pipeLayout} from '../public/pipe-layout.js';
+const {document,window}=parseHTML(fs.readFileSync('public/index.html','utf8'));
+const module={exports:{}};vm.runInNewContext(fs.readFileSync('public/assets/gsap.min.js','utf8'),{module,exports:module.exports,setTimeout,clearTimeout,console,Date});
+const core=module.exports.gsap,windows=[...document.querySelectorAll('.stick-window')];
+let scrollConfig;
+const gs={fromTo(target,from,to){const {scrollTrigger,...props}=to;scrollConfig=scrollTrigger;return core.fromTo(target,from,{...props,duration:1,paused:true});}};
+const motion=makeStickCreation({gs,ST:{},stage:document.querySelector('.newbies-scene'),windows});
+const crops=()=>windows.map(w=>parseFloat(w.querySelector('.stick-product').style.clipPath.slice(6)));
+assert.deepEqual(crops(),[100,100,100],'Packaging starts fully hidden');
+motion.timeline.seek(.4,false);const partial=crops();assert.ok(partial[0]<partial[1]&&partial[1]<partial[2]);assert.ok(partial.every(x=>x>0&&x<100),'Each stick grows up from its base, with a stagger');
+const orbit=windows[0].querySelector('.creation-spark').style.left;motion.timeline.seek(.48,false);assert.notEqual(windows[0].querySelector('.creation-spark').style.left,orbit,'Wand moves around the reveal edge');
+motion.timeline.seek(1,false);assert.deepEqual(crops(),[0,0,0]);assert.ok(windows.every(w=>w.querySelector('.creation-spark').style.opacity==='0'),'No wand remains after the full sticks appear');
+motion.timeline.seek(0,false);assert.deepEqual(crops(),[100,100,100],'Reverse scroll restores the empty chambers');motion.dispose();assert.deepEqual(crops(),[0,0,0],'Disposal leaves usable product links');
+makeStickCreation({stage:document.querySelector('.newbies-scene'),windows,reduced:true});assert.deepEqual(crops(),[0,0,0]);assert.equal(scrollConfig.pinnedContainer,'.production-run');
+assert.deepEqual(pipeLayout.outletFractions,[260/1280,640/1280,1020/1280],'All three outlets follow the new chamber centers');
+assert.equal(document.querySelectorAll('.chamber-title.sr-only').length,0);assert.deepEqual([...document.querySelectorAll('#classics .chamber-title')].map(n=>n.textContent),['Watermelon Trance','Blueberry Bomb','Pumpkin Energy','Elderflower Lullaby']);
+assert.ok([...document.querySelectorAll('.classics-cabinet-image')].every(n=>n.getAttribute('src').endsWith('classics-chambers-blank.webp')));
+const facts=document.querySelector('.benefits-scroll');assert.equal(facts.querySelectorAll('article').length,4);assert.deepEqual([...facts.querySelectorAll('h3')].map(n=>n.textContent),['TUMMY-LOVING','VITAMIN-PACKED','SWEET & SMART','INNER GLOW']);
+Object.defineProperties(facts,{scrollWidth:{value:1900},clientWidth:{value:900}});facts.scrollLeft=0;facts.scrollTo=({left})=>facts.scrollLeft=left;
+[...facts.children].forEach((n,i)=>n.getBoundingClientRect=()=>({left:i*500,width:436}));makeHorizontalTrack(facts,()=>true,'.benefit-fact');
+for(const key of ['ArrowRight','ArrowRight','ArrowRight']){const event=new window.Event('keydown');event.key=key;facts.dispatchEvent(event);}assert.equal(facts.scrollLeft,1000,'All facts are reachable by keyboard without overscrolling');const event=new window.Event('keydown');event.key='Home';facts.dispatchEvent(event);assert.equal(facts.scrollLeft,0);
+for(const group of document.querySelectorAll('.glow-marquee-group')){assert.deepEqual([...group.querySelectorAll('img')].map(n=>n.getAttribute('src').split('/').at(-1)),['pink-gummy-new.webp','star-gummy.webp','orange-gummy-glow.webp','teal-gummy.webp']);}
+assert.equal(document.querySelectorAll('.glow-marquee-group').length,2);assert.equal(document.querySelectorAll('.photo-instagram').length,6);assert.equal(document.querySelectorAll('a.photo-post[href*="-clean.webp"]').length,3);
+const css=fs.readFileSync('public/lab-updates.css','utf8');assert.match(css,/\.stick-glass\{[^}]*background:#fff;opacity:\.15/);assert.match(css,/@media\(prefers-reduced-motion:reduce\)/);assert.match(css,/pink-binder-clip.svg/);
+// Exercise the real controller's reduced-motion and offscreen/hidden lifecycle.
+let setups=0,disposals=0,mutation,intersection;const listeners={},media={matches:false,addEventListener(){},removeEventListener(){}};
+const controller={document,window:{gsap:{},ScrollTrigger:{sort(){},refresh(){}},addEventListener:(name,fn)=>listeners[name]=fn},matchMedia:()=>media,makeHorizontalTrack(){},makeStickCreation(){setups++;return {dispose(){disposals++;}};},MutationObserver:class{constructor(fn){mutation=fn;}observe(){}disconnect(){}},IntersectionObserver:class{constructor(fn){intersection=fn;}observe(){}disconnect(){}}};
+vm.runInNewContext(fs.readFileSync('public/lab-details.js','utf8').replace(/^import .*;\n/gm,''),controller);
+assert.equal(setups,1);mutation();assert.equal(setups,1,'Unrelated WebGL body-class updates never restart stick creation');document.body.classList.add('less-motion');mutation();assert.equal(setups,2);assert.equal(disposals,1);mutation();assert.equal(setups,2);document.body.classList.remove('less-motion');mutation();assert.equal(setups,3);
+intersection([{isIntersecting:true}]);assert.equal(document.querySelector('.glow-marquee').dataset.active,'true');document.hidden=true;document.dispatchEvent(new window.Event('visibilitychange'));assert.equal(document.querySelector('.glow-marquee').dataset.active,'false');document.hidden=false;intersection([{isIntersecting:false}]);assert.equal(document.querySelector('.glow-marquee').dataset.active,'false');listeners.pagehide({persisted:false});assert.equal(disposals,3);
+core.ticker.sleep();console.log('PASS: real GSAP bottom-up creation, orbiting wand, stagger, reverse/disposal/reduced-motion restoration, new pipe outlet alignment, editable cabinet labels, four keyboard-scrollable facts and preserved Instagram markers.');

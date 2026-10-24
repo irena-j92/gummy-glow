@@ -3,6 +3,7 @@ import {quantity,readBag,saveBag,addToBag,updateBag,bagCount} from './bag.js';
 
 export function initShop(document,storage){
  const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+ try{if($('.shop-header')&&storage?.getItem('gummy-glow-less-motion')==='yes')document.body.classList.add('less-motion');}catch{}
  let bag=readBag(storage),returnFocus=null,persisted=true;
  const dialog=$('#bag-dialog'),lines=$('#bag-lines');
  function renderBag(){

@@ -16,6 +16,7 @@
 @media(prefers-reduced-motion:reduce){.steam{display:none}.packing-bin{filter:none}.packing-pouch{filter:none}.lab-monitor:hover{transform:none}}
 body.less-motion .steam{display:none}
 /* Camera looks straight down onto the rollers and shallow tray. */
+.newbies .newbies-lab>.expansion-heading{margin:32px auto 24px}
 .packing-stage{aspect-ratio:1796/876;min-height:0;max-height:none}
 .packing-bin{left:50%;top:50%;bottom:auto;translate:-50% -50%;width:64%;aspect-ratio:3/2;filter:drop-shadow(0 14px 12px #01064044)}
 .packing-tray{clip-path:inset(4.3% 2.1% 4.4% 2.1% round 7%);display:block;width:100%;height:auto;max-width:none;pointer-events:none}

@@ -20,7 +20,7 @@
 #classics .steam{bottom:12%;left:5%;right:5%;z-index:4}
 .classics-display{position:relative;display:block;width:100%;aspect-ratio:2048/173;min-height:44px;overflow:hidden;margin:0;line-height:0;isolation:isolate}
 .classics-display-image{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;pointer-events:none}
-.display-lettering{position:absolute;left:50%;top:52.5%;translate:-50% -50%;width:20%;height:35%;max-width:none;object-fit:contain;pointer-events:none;transition:filter .25s,opacity .25s}
+.display-lettering{position:absolute;left:50%;top:52.5%;translate:-50% -50%;width:auto;height:calc(35% - 10px);max-width:none;object-fit:contain;pointer-events:none;transition:filter .25s,opacity .25s}
 .classics-display:hover .display-lettering,.classics-display:focus-visible .display-lettering{filter:drop-shadow(0 0 6px #fc8cf6);opacity:.85}
 .classics-display:focus-visible{outline:3px solid #080f82;outline-offset:-4px}
 .classics-scroll img{user-select:none;-webkit-user-drag:none}
@@ -32,8 +32,14 @@
 @media(max-width:760px){
  .classics-machine{--chamber-gap:12px;width:96vw}#classics .chamber{flex-basis:calc((100% - var(--chamber-gap)) / 1.25)}
  #classics .chamber:first-child{margin-left:0}#classics .chamber:last-child{margin-right:0}
- .classics-display{aspect-ratio:auto;height:54px}.classics-display-image{left:50%;translate:-50% 0;width:auto;min-width:100%;height:100%;object-fit:cover}.display-lettering{width:126px;height:24px}
+ .classics-display{aspect-ratio:auto;height:54px}.classics-display-image{left:50%;translate:-50% 0;width:auto;min-width:100%;height:100%;object-fit:cover}.display-lettering{width:auto;height:14px}
  .review-track{--review-gutter:max(7vw,32px)}.review-note{flex-basis:78vw}
 }
 @media(prefers-reduced-motion:reduce){#classics .chamber-glass,.display-lettering{transition:none}}
 body.less-motion #classics .chamber-glass,body.less-motion .display-lettering{transition:none}
+
+/* Keep the factory hardware joined, including during the pipeline scroll hold. */
+.production-run{display:flow-root;background:#fc8cf6}
+.production-run #classics{padding-bottom:0}
+.production-run #newbies{padding-top:0}
+.production-run .newbies-chambers{display:block}

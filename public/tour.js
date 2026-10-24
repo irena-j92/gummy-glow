@@ -2,13 +2,13 @@ import {tourProgress} from './flavors.js';
 import {floorAt,creationReveal} from './tour-math.js';
 import {makePackingMotion} from './packing-motion.js';
 import {makeDescriptionMotion} from './description-motion.js';
-import {makeSectionMotion,makeHeadlineMotion,makeChamberArrival} from './section-motion.js';
+import {makeSectionMotion,makeHeadlineMotion,makeChamberArrival,makePipelineHold} from './section-motion.js';
 import {makeHorizontalTrack} from './horizontal-track.js';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const media=matchMedia('(prefers-reduced-motion: reduce)');
 const floors=$$('[data-floor]');
 const state={labProgress:0,labReveal:-.06,webglUnavailable:false,pipeProgress:0,pipeVisible:false,pipePaused:false,burst:0,reduced:media.matches,delivered:false};
-let view,context,packingMotion,descriptionMotion,heroTimeline,labMotion,labMarquee,labFloat,labInView=false,scrollFrame=0,resizeTimer,selectedFloor=null,selectionTimer,lastScroll=scrollY,activeFloor=-1,disposed=false;
+let view,context,pipelineHold,packingMotion,descriptionMotion,heroTimeline,labMotion,labMarquee,labFloat,labInView=false,scrollFrame=0,resizeTimer,selectedFloor=null,selectionTimer,lastScroll=scrollY,activeFloor=-1,disposed=false;
 let motionOverride=false;
 try{motionOverride=localStorage.getItem('gummy-glow-less-motion')==='yes';}catch{}
 state.reduced=media.matches||motionOverride;
@@ -105,7 +105,7 @@ function updateFloor(){
 }
 function setupMotion(){
  const anchor=activeFloor>=0?floors[activeFloor]:null,anchorTop=anchor?.getBoundingClientRect().top;
- descriptionMotion?.dispose();descriptionMotion=null;packingMotion?.dispose();packingMotion=null;context?.revert();context=null;$('.classics').classList.remove('classics-arrived');labMotion=null;labMarquee=null;labFloat=null;labInView=false;
+ descriptionMotion?.dispose();descriptionMotion=null;packingMotion?.dispose();packingMotion=null;context?.revert();context=null;pipelineHold=null;$('.classics').classList.remove('classics-arrived');labMotion=null;labMarquee=null;labFloat=null;labInView=false;
  state.reduced=media.matches||motionOverride;
  document.body.classList.toggle('less-motion',state.reduced);
  document.body.classList.toggle('motion-on',!state.reduced);
@@ -117,17 +117,17 @@ function setupMotion(){
   state.labProgress=0;state.labReveal=-.06;$('.blueprint-art').style.setProperty('--reveal','-6%');
   context=gs.context(()=>{
    const enterLab=()=>{labInView=true;syncLabMotion();},leaveLab=()=>{labInView=false;syncLabMotion();};
-   gs.fromTo(state,{labProgress:0},{labProgress:1,ease:'none',onUpdate:updateCreation,scrollTrigger:{trigger:'.creation-stage',pin:'.creation-stage',start:()=>$('.creation-stage').clientHeight>innerHeight?'top top':'center center',end:()=>'+='+innerHeight*2.8,scrub:.45,invalidateOnRefresh:true,anticipatePin:1,onEnter:enterLab,onEnterBack:enterLab,onLeave:leaveLab,onLeaveBack:leaveLab}});
+   gs.fromTo(state,{labProgress:0},{labProgress:1,ease:'none',onUpdate:updateCreation,scrollTrigger:{trigger:'.creation-tunnel',start:'top top',end:()=>'+='+Math.max(1,$('.creation-tunnel').clientHeight-$('.creation-stage').clientHeight),scrub:.45,invalidateOnRefresh:true,anticipatePin:1,onEnter:enterLab,onEnterBack:enterLab,onLeave:leaveLab,onLeaveBack:leaveLab}});
    labFloat=gs.to('.blueprint-frame',{y:-10,duration:2.6,ease:'sine.inOut',repeat:-1,yoyo:true,paused:true});
 
    labMarquee=gs.to('.lab-marquee>div',{xPercent:-50,duration:24,ease:'none',repeat:-1,paused:true});
    labMotion=gs.timeline({repeat:-1,repeatDelay:.6,paused:true});
    labMotion.to('.lab-wall-claw',{yPercent:24,duration:2.4,ease:'sine.inOut',stagger:.3}).to('.lab-wall-claw',{yPercent:-24,duration:2.4,ease:'sine.inOut',stagger:.3});
    gs.fromTo('.chamber-pack',{yPercent:-190,scaleY:1},{yPercent:0,scaleY:1,duration:.8,ease:'power2.in',stagger:0,onComplete:()=>$('.classics').classList.add('classics-arrived'),onReverseComplete:()=>$('.classics').classList.remove('classics-arrived'),scrollTrigger:{trigger:'.chamber-track',start:'top 78%',toggleActions:'play none none reverse'}});
-   makeChamberArrival({gs,stage:$('.creation-stage'),shell:$('.chamber-shell')});
+   makeChamberArrival({gs,stage:$('.creation-tunnel'),shell:$('.chamber-shell')});
+   pipelineHold=makePipelineHold({ST,section:$('#pipeline'),assembly:$('.production-run'),onUpdate:s=>{state.pipeProgress=s.progress;requestView();}});
    makeSectionMotion({gs,resolve:$$});makeHeadlineMotion({gs,resolve:$$});
 
-   ST.create({trigger:'.pipeline',start:'top bottom',end:'bottom top',onUpdate:s=>{state.pipeProgress=s.progress;requestView();}});
   });ST.sort();ST.refresh();
   if(state.delivered)layoutHero(true);
  }
@@ -148,14 +148,22 @@ async function ensureWebGL(){
  }catch{webglUnavailable=true;state.webglUnavailable=true;$('#pipe-status').textContent='The factory line is shown as an illustration.';}
  finally{webglPending=false;}
 }
-function scrollToPoint(y){
- window.scrollTo({top:Math.max(0,y),behavior:state.reduced?'instant':'smooth'});
+function destinationY(target){
+ const y=target.getBoundingClientRect().top+scrollY;
+ if(!pipelineHold||!target.closest('.production-run')||!Number.isFinite(pipelineHold.start)||!Number.isFinite(pipelineHold.end))return y;
+ // Inside the pinned assembly, DOM positions include only the elapsed hold.
+ // Resolve the full destination so floor buttons reach Newbies from either direction.
+ const distance=pipelineHold.end-pipelineHold.start,naturalY=y-(pipelineHold.progress||0)*distance;
+ return naturalY+(naturalY>pipelineHold.start?distance:0);
+}
+function scrollToPoint(y,instant=false){
+ window.scrollTo({top:Math.max(0,y),behavior:state.reduced||instant?'instant':'smooth'});
 }
 document.addEventListener('click',e=>{
  const anchor=e.target.closest('a[href^="#"]');if(!anchor)return;
  const id=anchor.getAttribute('href').slice(1),target=document.getElementById(id);if(!target)return;
- e.preventDefault();selectedFloor=target.dataset.floor||target.dataset.floorGroup||null;if(selectedFloor)setSelectedFloor(selectedFloor);clearTimeout(selectionTimer);selectionTimer=setTimeout(()=>{selectedFloor=null;updateFloor();},1600);const y=id==='reception'?0:target.getBoundingClientRect().top+scrollY;
- scrollToPoint(y);history.replaceState(null,'','#'+id);
+ e.preventDefault();selectedFloor=target.dataset.floor||target.dataset.floorGroup||null;if(selectedFloor)setSelectedFloor(selectedFloor);clearTimeout(selectionTimer);selectionTimer=setTimeout(()=>{selectedFloor=null;updateFloor();},1600);const y=id==='reception'?0:destinationY(target);
+ scrollToPoint(y,e.detail===0);history.replaceState(null,'','#'+id);
  // Focus the destination without snapping past the animated transition.
  target.setAttribute('tabindex','-1');target.focus({preventScroll:true});
 });

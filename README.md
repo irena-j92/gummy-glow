@@ -19,8 +19,8 @@ The build generates product pages and the pipeline's static fallback, then prepa
 - Creation: blueprint-to-gray-pouch scan, floating completed model, pink wall claws and an elevator arrival.
 - Comparison: supplied table artwork and overlapping clipboard with hover tilt.
 - Classics: enlarged, separately masked chambers; Watermelon, Blueberry and Pumpkin align with their pipe inlets, with Blueberry centered. Elderflower remains accessible horizontally. Glass dissolves on hover/focus.
-- Pipeline: six bends per pipe, reflective glass, large photographic gummies visible from the inlets, and three vivid liquid-only outlets aligned with Newbies. The section stays still as it scrolls into view; its #FC8CF6 background matches Classics.
-- Newbies, horizontally scrolling paper reviews with a magnifying lens, and overhead pouch packing.
+- Pipeline: six bends per pipe, reflective glass, large photographic gummies visible from the inlets, and three vivid liquid-only outlets aligned with Newbies. Classics, pipes and Newbies form one flush assembly with no vertical padding at the joins. The assembly pins at the pipeline for one viewport of scrolling while gummies and liquid keep moving, so the hold cannot introduce a gap before Newbies. Reduced motion skips the pin; its #FC8CF6 background matches Classics.
+- Newbies with its heading directly above the stick flavor titles, horizontally scrolling paper reviews with a magnifying lens, and overhead pouch packing.
 - JOIN THE FUN: six supplied portrait photos on a navy rope with pink clasps, subtle tilts/folds and pink Instagram marks. Mouse drag, touch and keyboard scrolling; a larger-photo viewer with previous/next controls and focus restoration.
 - Pink post-box feature and the supplied navy footer, including newsletter sign-up.
 
@@ -49,3 +49,7 @@ Live browser visual verification and GPU/frame-rate measurements are unavailable
 ## Hosting
 
 `.openai/hosting.json` identifies the existing owner-private Sites project. The Sites workflow builds and deploys the exact synchronized source state while preserving owner-only access. GitHub source synchronization is performed when requested; it does not change that hosting access policy.
+
+The 21 October chamber, stick-creation, facts, marquee, pixel-label and binder-clip updates are documented in `docs/oct21-lab-update.md`. Run `npm run build` before `npm run dev` for the local preview.
+
+The Sweet Tape-inspired factory experience adds a four-flavor mixing room, elevator-door entry, native sticky creation hold, and a floor-pass drawer. See `docs/factory-experience-motion.md` for choreography, accessibility and verification.

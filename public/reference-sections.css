@@ -60,3 +60,4 @@
 .reference-pipeline .pipe-visual{width:min(100%,1400px);aspect-ratio:1600/1000}
 
 .reference-pipeline .pipe-visual{background:transparent}
+.reference-pipeline{min-height:0;display:block;padding:0}
